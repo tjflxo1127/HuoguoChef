@@ -25,7 +25,6 @@
 #define INGREDIENTS_SIZE 100
 #define HEART_SIZE 30
 
-#define MIN_INGREDIENT 3   // 화면에 나타나는 재료의 최소 개수
 #define MAX_INGREDIENTS 50 // 화면에 나타나는 재료의 최대 개수
 
 #define GRAVITY 0.5f
