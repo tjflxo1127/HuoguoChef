@@ -56,11 +56,11 @@ void init_sdl(void) {
     int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
     if (!(IMG_Init(imgFlags) & imgFlags)) exit(1);
 
-    app.font = TTF_OpenFont(FONT_PATH, FONTSIZE);
+    app.font = TTF_OpenFont("./ttf/LiberationSans-Regular.ttf", FONTSIZE);
     
     if (!app.font) {
         printf("[1;31m[ERROR] Font Load Fail: %s\n", TTF_GetError());
-        printf("Current Path Check: please move '%s' to executable folder.\n", FONT_PATH);
+        printf("Current Path Check: please move '%s' to executable folder.\n", "./ttf/LiberationSans-Regular.ttf");
         // 폰트 없으면 게임 진행이 어려우므로 종료
     }
 
