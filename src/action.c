@@ -112,6 +112,8 @@ void ActIngredients(Ingredient *ingredients, int count) {
     }
 }
 
+
+
 void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int y2) {
     if (app.game.game_over) return;
 
@@ -134,17 +136,17 @@ void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int 
 
     if (hit_count > 0) {
         if (has_enemy) {
+            PlayBombSound(); // 폭탄, 신발, 돌 베었을 때 터짐
             app.game.lives--;
             if (app.game.lives <= 0) app.game.game_over = 1;
         } else {
+            PlaySlashSound(); // 일반 재료 베면 효과음!
             for (int k = 0; k < hit_count; k++) {
                 int idx = hit_indices[k];
                 Ingredient *target = &ingredients[idx];
                 target->is_sliced = 1;
                 app.game.score += 10;
                 target->dy = -5.0f;
-                
-                PlaySlashSound();
             }
         }
     }
