@@ -12,8 +12,6 @@ int main(int argc, char *argv[]) {
 
     // 1. 초기화
     init_sdl();
-    InitIngredient();
-    InitTrail();
 
      // BGM 재생 시작
     PlayBGM();
