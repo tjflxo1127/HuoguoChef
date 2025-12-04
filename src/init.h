@@ -2,7 +2,7 @@
 #define INIT_H
 
 #include "defs.h"
-
+#include "sound.h"
 // 전역 변수 (외부 참조)
 extern App app;
 extern int g_game_running;
