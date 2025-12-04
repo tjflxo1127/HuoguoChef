@@ -140,7 +140,9 @@ void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int 
     if (hit_count > 0) {
         if (has_enemy) {
             PlayBombSound(); // 폭탄, 신발, 돌 베었을 때 터짐
-            app.game.lives--;
+            if (app.game.lives > 0) {  // 라이프가 0보다 클 때만 깎음
+                app.game.lives--;
+            }
             if (app.game.lives <= 0) {
                 app.game.game_over = 1;
                 StopBGM(); // 게임 오버 시 BGM 정지
