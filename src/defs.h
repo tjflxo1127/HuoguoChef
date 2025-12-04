@@ -26,6 +26,8 @@
 #define INGREDIENTS_HEIGHT 80
 #define INGREDIENTS_SPEED 10
 
+#define HEART_SIZE 30
+
 #define MIN_INGREDIENT 3   // 화면에 나타나는 재료의 최소 개수
 #define MAX_INGREDIENTS 50 // 화면에 나타나는 재료의 최대 개수
 
