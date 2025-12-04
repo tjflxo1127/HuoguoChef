@@ -70,6 +70,7 @@ void init_sdl(void) {
     // === [사운드 시스템/효과음 초기화 추가] ===
     InitSound();       // 사운드 시스템 초기화
     LoadEffects();     // 효과음(.wav) 파일 로드
+    SetBGMVolume(64); //BGM 볼륨 낮추기 (0~128 범위인데 64로 절반정도로 낮추었다)
 
     // 배경 설정
     app.background_texture = IMG_LoadTexture(app.g_renderer, "./gfx/background.png");
