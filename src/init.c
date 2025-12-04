@@ -7,7 +7,6 @@
 #include "draw.h"
 #include "input.h"
 #include "sound.h"
-// #include "score.h" // [추가]
 
 
 Ingredient mushroom, cabbage, meat, beanSprouts, shoes, stone;
@@ -17,10 +16,11 @@ TextObject score_text, life_text;
 // [추가] 게임 오버용 텍스트 객체
 TextObject gameover_text, restart_text;
 
-/*TextObject score_text, life_text;
+/*
 TextObject high_score_text; // [추가]
 TextObject gameover_text, restart_text;
-TextObject leaderboard_texts[MAX_LEADERBOARD_ENTRIES]; // [추가] 리더보드 줄마다 하나씩 */
+TextObject leaderboard_texts[MAX_LEADERBOARD_ENTRIES]; // [추가] 리더보드 줄마다 하나씩
+*/
 
 
 void InitTrail(void) {
@@ -40,12 +40,10 @@ void InitIngredient(void) {
     LOAD_TEX(meat, "./gfx/meat.png");
     LOAD_TEX(mushroom, "./gfx/mushroom.png");
     LOAD_TEX(beanSprouts, "./gfx/bean_sprouts.png");
-    LOAD_TEX(shoes, "./gfx/shoes.png");
     
-    // [수정 4번 관련] 돌 이미지 로드
+    LOAD_TEX(shoes, "./gfx/shoes.png");
     LOAD_TEX(stone, "./gfx/stone.png"); 
 
-    // [수정 1번 해결] 하트 이미지 로드 추가
     LOAD_TEX(heart_red, "./gfx/heart_red.png");
     LOAD_TEX(heart_black, "./gfx/heart_black.png");
 }
