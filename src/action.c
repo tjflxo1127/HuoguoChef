@@ -43,11 +43,6 @@ void SpawnIngredient(void) {
     ing->is_active = 1;
     ing->is_sliced = 0;
     
-    // [중요] 크기를 상수로 강제 고정 (8x8)
-    int w, h;
-    SDL_QueryTexture(ing->texture, NULL, NULL, &w, &h);
-    ing->w = w / 2; // 혹은 원하는 고정 크기 로직
-    ing->h = h / 2;
 
     int center_x = SCREEN_WIDTH / 2;
     int offset_x = RandInt(-50, 51);
@@ -72,9 +67,28 @@ void SpawnIngredient(void) {
         case STONE: ing->texture = stone.texture; ing->is_enemy = 1; break;  // 함정 아이템인 신발과 돌은 1 나머지는 0
         default: ing->texture = cabbage.texture; ing->is_enemy = 0; break;
     }
+    
+    //비율 유지하며 크기 조절하는 로직
+    int origin_w, origin_h;
+    // 현재 연결된 이미지의 실제 크기를 알아냅니다.
+    SDL_QueryTexture(ing->texture, NULL, NULL, &origin_w, &origin_h);
 
-    // [중요] SDL_QueryTexture 코드를 완전히 제거했습니다.
-    // 이제 이미지가 아무리 커도 8x8 크기로 찌그러져서 나옵니다.
+    float scale = 1.0f;
+    float target_size = (float)INGREDIENTS_SIZE; // 목표 크기 (80px)
+
+    if (origin_w > 0 && origin_h > 0) {
+        // 가로가 더 길면 가로를 80에 맞추고, 세로가 더 길면 세로를 80에 맞춤
+        if (origin_w > origin_h) {
+            scale = target_size / (float)origin_w;
+        } else {
+            scale = target_size / (float)origin_h;
+        }
+    }
+
+    // 2. 계산된 비율대로 크기 적용
+    ing->w = (int)(origin_w * scale);
+    ing->h = (int)(origin_h * scale);
+    // 원래 : 이제 이미지가 아무리 커도 8x8 크기로 찌그러져서 나옴 -> 비율 이상해짐 -> 위 코드로 해결
 }
 
 void ActIngredients(Ingredient *ingredients, int count) {
