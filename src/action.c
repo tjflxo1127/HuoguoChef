@@ -12,8 +12,8 @@ extern Ingredient shoes;
 extern Ingredient stone;
 
 #define SPAWN_INTERVAL 40
-#define LAUNCH_SPEED_MIN 18.0f  //원래 13
-#define LAUNCH_SPEED_MAX 25.0f   //원래 18
+#define LAUNCH_SPEED_MIN 18.0f 
+#define LAUNCH_SPEED_MAX 25.0f 
 
 static int spawn_timer = 0;
 
