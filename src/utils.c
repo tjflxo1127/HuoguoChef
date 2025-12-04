@@ -56,5 +56,5 @@ double RandDouble(double min, double max) {
 
 // Degree -> Radian 변환
 double DegToRad(double degrees) {
-    return degrees * (M_PI / 180.0);
+    return degrees * (PI / 180.0);
 }
