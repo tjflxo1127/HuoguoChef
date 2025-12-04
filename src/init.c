@@ -36,13 +36,37 @@ void InitIngredient(void) {
         obj.texture = IMG_LoadTexture(app.g_renderer, path); \
         if (!obj.texture) printf("Failed to load %s: %s\n", path, IMG_GetError());
 
+
+    // [추가] 분리된 단면 이미지 2개를 로드하는 매크로
+    #define LOAD_SPLIT_TEX(obj, path1, path2) \
+        obj.sliced_tex1 = IMG_LoadTexture(app.g_renderer, path1); \
+        obj.sliced_tex2 = IMG_LoadTexture(app.g_renderer, path2); \
+        if (!obj.sliced_tex1) printf("Failed to load %s\n", path1); \
+        if (!obj.sliced_tex2) printf("Failed to load %s\n", path2);
+
+    // 1. 배추
     LOAD_TEX(cabbage, "./gfx/cabbage.png");
+    LOAD_SPLIT_TEX(cabbage, "./gfx/s_cabbage1.png", "./gfx/s_cabbage2.png");
+
+    // 2. 고기
     LOAD_TEX(meat, "./gfx/meat.png");
+    LOAD_SPLIT_TEX(meat, "./gfx/s_meat1.png", "./gfx/s_meat2.png");
+
+    // 3. 버섯
     LOAD_TEX(mushroom, "./gfx/mushroom.png");
+    LOAD_SPLIT_TEX(mushroom, "./gfx/s_mushroom1.png", "./gfx/s_mushroom2.png");
+
+    // 4. 콩나물
     LOAD_TEX(beanSprouts, "./gfx/bean_sprouts.png");
-    
+    LOAD_SPLIT_TEX(beanSprouts, "./gfx/s_bean_sprouts1.png", "./gfx/s_bean_sprouts2.png");
+
+    // 5. 함정 (신발, 돌) - 잘린 이미지가 없으므로 NULL
     LOAD_TEX(shoes, "./gfx/shoes.png");
-    LOAD_TEX(stone, "./gfx/stone.png"); 
+    shoes.sliced_tex1 = NULL; shoes.sliced_tex2 = NULL;
+
+    LOAD_TEX(stone, "./gfx/stone.png");
+    stone.sliced_tex1 = NULL; stone.sliced_tex2 = NULL;
+
 
     LOAD_TEX(heart_red, "./gfx/heart_red.png");
     LOAD_TEX(heart_black, "./gfx/heart_black.png");
@@ -142,6 +166,19 @@ void cleanup_sdl(void) {
     if (app.font) TTF_CloseFont(app.font);
     if (app.g_renderer) SDL_DestroyRenderer(app.g_renderer);
     if (app.g_window) SDL_DestroyWindow(app.g_window);
+
+    
+    if (cabbage.sliced_tex1) SDL_DestroyTexture(cabbage.sliced_tex1);
+    if (cabbage.sliced_tex2) SDL_DestroyTexture(cabbage.sliced_tex2);
+    
+    if (meat.sliced_tex1) SDL_DestroyTexture(meat.sliced_tex1);
+    if (meat.sliced_tex2) SDL_DestroyTexture(meat.sliced_tex2);
+    
+    if (mushroom.sliced_tex1) SDL_DestroyTexture(mushroom.sliced_tex1);
+    if (mushroom.sliced_tex2) SDL_DestroyTexture(mushroom.sliced_tex2);
+    
+    if (beanSprouts.sliced_tex1) SDL_DestroyTexture(beanSprouts.sliced_tex1);
+    if (beanSprouts.sliced_tex2) SDL_DestroyTexture(beanSprouts.sliced_tex2);
 
     CleanupSound(); //사운드 시스템 정리 추가
 
