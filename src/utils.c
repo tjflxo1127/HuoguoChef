@@ -25,18 +25,16 @@ int CheckLineRectHit(int x1, int y1, int x2, int y2, const SDL_Rect *rect) {
 int CheckOutBound(Ingredient *ing) {
     // 화면 아래쪽(SCREEN_HEIGHT)보다 더 아래로 내려갔는지 확인
     // (완전히 사라지게 하기 위해 여유분 50픽셀 정도를 둡니다)
-    if (ing->y > SCREEN_HEIGHT + 50) {
+    if (ing->y > SCREEN_HEIGHT) {
         return 1; // 화면 밖으로 나감
     }
-    
-    // (선택 사항) 좌우나 위쪽으로 너무 멀리 날아간 경우도 제거하고 싶다면 아래 주석 해제
-    /*
-    if (ing->x < -100 || ing->x > SCREEN_WIDTH + 100 || ing->y < -500) {
+
+    // 화면 양옆으로 재료가 나가는 경우 확인
+    if ((ing->x + ing->w < 0) || (ing->x > SCREEN_WIDTH)) {
         return 1;
     }
-    */
-
-    return 0; // 아직 화면 안에 있거나 유효한 범위임
+    
+    return 0;
 }
 
 // 정수 난수 생성 (min 이상 max 미만)
