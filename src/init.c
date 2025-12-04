@@ -59,17 +59,14 @@ void init_sdl(void) {
     app.font = TTF_OpenFont(FONT_PATH, FONTSIZE);
     
     if (!app.font) {
-        // [중요] 에러 메시지를 빨간색으로 잘 보이게 출력
-        printf("\033[1;31m[ERROR] Font Load Fail: %s\033[0m\n", TTF_GetError());
+        printf("[1;31m[ERROR] Font Load Fail: %s\n", TTF_GetError());
         printf("Current Path Check: please move '%s' to executable folder.\n", FONT_PATH);
-        // 폰트 없으면 게임 진행이 어려우므로 종료하거나 기본 처리
+        // 폰트 없으면 게임 진행이 어려우므로 종료
     }
 
     app.g_window = SDL_CreateWindow("Huoguo Chef", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     app.g_renderer = SDL_CreateRenderer(app.g_window, -1, SDL_RENDERER_ACCELERATED);
     SDL_SetRenderDrawBlendMode(app.g_renderer, SDL_BLENDMODE_BLEND);
-
-    app.font = TTF_OpenFont("./ttf/LiberationSans-Regular.ttf", FONTSIZE);
     
     InitIngredient();
     InitTrail();
