@@ -15,6 +15,9 @@ int main(int argc, char *argv[]) {
     InitIngredient();
     InitTrail();
 
+     // BGM 재생 시작
+    PlayBGM();
+
     // [추가] 게임 상태 초기화
     app.game.score = 0;
     app.game.lives = 3;
