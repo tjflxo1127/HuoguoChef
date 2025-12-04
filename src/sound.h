@@ -13,4 +13,7 @@ void LoadEffects(void);
 // 효과음 플레이 함수
 void PlaySlashSound(void);
 
+// 폭탄 효과음 (신발·돌)
+void PlayBombSound(void);
+
 #endif
