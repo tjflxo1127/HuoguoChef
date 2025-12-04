@@ -1,7 +1,7 @@
 #include "action.h"
 #include "utils.h"
 #include "sound.h"  
-ㅇㅇ
+
 extern App app;
 
 extern Ingredient cabbage;
