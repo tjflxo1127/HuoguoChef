@@ -17,6 +17,9 @@ extern Ingredient stone;
 
 static int spawn_timer = 0;
 
+void SpawnIngredient(void);
+void CreateFragment(Ingredient *parent, int part);
+
 void ActGame(void) {
     if (app.game.game_over) return;
 
@@ -28,6 +31,55 @@ void ActGame(void) {
 
     ActIngredients(app.game.ingredients, MAX_INGREDIENTS);
 }
+
+// [조각 생성 함수]
+// parent: 원래 재료, part: 1(왼쪽) 또는 2(오른쪽)
+void CreateFragment(Ingredient *parent, int part) {
+    // 빈 슬롯 찾기
+    int idx = -1;
+    for (int i = 0; i < MAX_INGREDIENTS; i++) {
+        if (!app.game.ingredients[i].is_active) {
+            idx = i;
+            break;
+        }
+    }
+    if (idx == -1) return; // 슬롯 꽉 참
+
+    Ingredient *frag = &app.game.ingredients[idx];
+
+    // 1. 기본 상태 설정
+    frag->is_active = 1;
+    frag->is_sliced = 1; // 이미 잘린 상태로 취급 (점수 중복 획득 방지)
+    frag->is_enemy = 0;
+    frag->type = parent->type;
+
+    // 2. 텍스처 설정 (잘린 이미지 사용)
+    SDL_Texture *use_tex = (part == 1) ? parent->sliced_tex1 : parent->sliced_tex2;
+    frag->texture = use_tex;
+    
+    // 텍스처가 없으면 생성 취소 (함정 아이템 등 잘린 이미지가 없는 경우)
+    if (!use_tex) { 
+        frag->is_active = 0; 
+        return; 
+    }
+
+    // [크기 설정] 
+    // 부모의 절반 너비, 높이는 동일하게 설정 (비율 유지된 부모 크기 기준)
+    frag->w = parent->w / 2; 
+    frag->h = parent->h;
+
+    // 3. 위치 및 물리 설정
+    // 부모 위치를 기준으로 왼쪽 조각은 약간 왼쪽, 오른쪽 조각은 약간 오른쪽에 배치
+    int offset = parent->w / 4; 
+    frag->x = parent->x + (part == 1 ? -offset : offset); 
+    frag->y = parent->y;
+    
+    // 속도 설정: 원래 속도 유지하되, 좌우로 퍼지게
+    float spread = (part == 1) ? -4.0f : 4.0f; // 왼쪽은 -속도, 오른쪽은 +속도
+    frag->dx = parent->dx + spread; 
+    frag->dy = parent->dy - 3.0f; // 베였을 때 살짝 위로 튀어오름
+}
+
 
 void SpawnIngredient(void) {
     int idx = -1;
