@@ -74,6 +74,9 @@ typedef struct {
 
     int w, h;           // 크기
     SDL_Texture *texture; // 이미지 텍스처
+
+    SDL_Texture *sliced_tex1;   // 왼쪽 조각 (s_*.1.png)
+    SDL_Texture *sliced_tex2;   // 오른쪽 조각 (s_*.2.png)
 } Ingredient;
 
 // 게임 상태 구조체
