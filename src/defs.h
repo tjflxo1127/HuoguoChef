@@ -30,6 +30,8 @@
 #define MAX_INGREDIENTS 50 // 화면에 나타나는 재료의 최대 개수
 
 #define GRAVITY 0.5f
+#define PI 3.14
+
 #define FONTSIZE 20
 
 #define TRAIL_LENGTH 10    // 마우스 궤적 길이
