@@ -1,5 +1,6 @@
 #include "action.h"
 #include "utils.h"
+#include "sound.h"  
 
 extern App app;
 
@@ -142,6 +143,8 @@ void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int 
                 target->is_sliced = 1;
                 app.game.score += 10;
                 target->dy = -5.0f;
+                
+                PlaySlashSound();
             }
         }
     }
