@@ -1,0 +1,148 @@
+#include "action.h"
+#include "utils.h"
+
+extern App app;
+
+extern Ingredient cabbage;
+extern Ingredient meat;
+extern Ingredient mushroom;
+extern Ingredient beanSprouts;
+extern Ingredient shoes;
+extern Ingredient stone;
+
+#define SPAWN_INTERVAL 40
+#define LAUNCH_SPEED_MIN 18.0f  //원래 13
+#define LAUNCH_SPEED_MAX 25.0f   //원래 18
+
+static int spawn_timer = 0;
+
+void ActGame(void) {
+    if (app.game.game_over) return;
+
+    spawn_timer++;
+    if (spawn_timer > SPAWN_INTERVAL) {
+        SpawnIngredient();
+        spawn_timer = 0;
+    }
+
+    ActIngredients(app.game.ingredients, MAX_INGREDIENTS);
+}
+
+void SpawnIngredient(void) {
+    int idx = -1;
+    for (int i = 0; i < MAX_INGREDIENTS; i++) {
+        if (!app.game.ingredients[i].is_active) {
+            idx = i;
+            break;
+        }
+    }
+    if (idx == -1) return;
+
+    Ingredient *ing = &app.game.ingredients[idx];
+
+    ing->is_active = 1;
+    ing->is_sliced = 0;
+    
+    // [중요] 크기를 상수로 강제 고정 (8x8)
+    int w, h;
+    SDL_QueryTexture(ing->texture, NULL, NULL, &w, &h);
+    ing->w = w / 2; // 혹은 원하는 고정 크기 로직
+    ing->h = h / 2;
+
+    int center_x = SCREEN_WIDTH / 2;
+    int offset_x = RandInt(-50, 51);
+    ing->x = (float)(center_x + offset_x);
+    ing->y = (float)SCREEN_HEIGHT;
+
+    double angle_deg = RandDouble(60.0, 120.0);
+    double angle_rad = DegToRad(angle_deg);
+    double speed = RandDouble(LAUNCH_SPEED_MIN, LAUNCH_SPEED_MAX);
+
+    ing->dx = (float)(speed * cos(angle_rad));
+    ing->dy = (float)(-speed * sin(angle_rad));
+
+    ing->type = RandInt(0, 6);
+
+    switch (ing->type) {
+        case MUSHROOM: ing->texture = mushroom.texture; ing->is_enemy = 0; break;
+        case CABBAGE: ing->texture = cabbage.texture; ing->is_enemy = 0; break;
+        case MEAT: ing->texture = meat.texture; ing->is_enemy = 0; break;
+        case BEANSPROUTS: ing->texture = beanSprouts.texture; ing->is_enemy = 0; break;
+        case SHOES: ing->texture = shoes.texture; ing->is_enemy = 1; break;
+        case STONE: ing->texture = stone.texture; ing->is_enemy = 1; break;  // 함정 아이템인 신발과 돌은 1 나머지는 0
+        default: ing->texture = cabbage.texture; ing->is_enemy = 0; break;
+    }
+
+    // [중요] SDL_QueryTexture 코드를 완전히 제거했습니다.
+    // 이제 이미지가 아무리 커도 8x8 크기로 찌그러져서 나옵니다.
+}
+
+void ActIngredients(Ingredient *ingredients, int count) {
+    for (int i = 0; i < count; i++) {
+        Ingredient *ing = &ingredients[i];
+
+        if (ing->is_active) {
+            ing->dy += GRAVITY;
+            ing->x += ing->dx;
+            ing->y += ing->dy;
+
+            if (CheckOutBound(ing)) {
+                if (!ing->is_sliced && !ing->is_enemy) {
+                    app.game.lives--;
+                    if (app.game.lives <= 0) app.game.game_over = 1;
+                }
+                ing->is_active = 0;
+            }
+        }
+    }
+}
+
+void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int y2) {
+    if (app.game.game_over) return;
+
+    int hit_indices[MAX_INGREDIENTS];
+    int hit_count = 0;
+    int has_enemy = 0;
+
+    for (int i = 0; i < count; i++) {
+        Ingredient *ing = &ingredients[i];
+
+        if (ing->is_active && !ing->is_sliced) {
+            SDL_Rect rect = { (int)ing->x, (int)ing->y, ing->w, ing->h };
+
+            if (CheckLineRectHit(x1, y1, x2, y2, &rect)) {
+                hit_indices[hit_count++] = i;
+                if (ing->is_enemy) has_enemy = 1;
+            }
+        }
+    }
+
+    if (hit_count > 0) {
+        if (has_enemy) {
+            app.game.lives--;
+            if (app.game.lives <= 0) app.game.game_over = 1;
+        } else {
+            for (int k = 0; k < hit_count; k++) {
+                int idx = hit_indices[k];
+                Ingredient *target = &ingredients[idx];
+                target->is_sliced = 1;
+                app.game.score += 10;
+                target->dy = -5.0f;
+            }
+        }
+    }
+}
+
+void ActGameOver(void) {}
+
+// [추가] 게임 재시작 로직
+void ResetGame(void) {
+    app.game.score = 0;
+    app.game.lives = 3;
+    app.game.game_over = 0;
+    
+    // 모든 재료 제거
+    for (int i = 0; i < MAX_INGREDIENTS; i++) {
+        app.game.ingredients[i].is_active = 0;
+    }
+}
