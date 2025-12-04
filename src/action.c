@@ -111,14 +111,50 @@ void SpawnIngredient(void) {
 
     ing->type = RandInt(0, 6);
 
+  
     switch (ing->type) {
-        case MUSHROOM: ing->texture = mushroom.texture; ing->is_enemy = 0; break;
-        case CABBAGE: ing->texture = cabbage.texture; ing->is_enemy = 0; break;
-        case MEAT: ing->texture = meat.texture; ing->is_enemy = 0; break;
-        case BEANSPROUTS: ing->texture = beanSprouts.texture; ing->is_enemy = 0; break;
-        case SHOES: ing->texture = shoes.texture; ing->is_enemy = 1; break;
-        case STONE: ing->texture = stone.texture; ing->is_enemy = 1; break;  // 함정 아이템인 신발과 돌은 1 나머지는 0
-        default: ing->texture = cabbage.texture; ing->is_enemy = 0; break;
+        case MUSHROOM: 
+            ing->texture = mushroom.texture; 
+            ing->sliced_tex1 = mushroom.sliced_tex1; 
+            ing->sliced_tex2 = mushroom.sliced_tex2;
+            ing->is_enemy = 0; 
+            break;
+        case CABBAGE: 
+            ing->texture = cabbage.texture; 
+            ing->sliced_tex1 = cabbage.sliced_tex1; 
+            ing->sliced_tex2 = cabbage.sliced_tex2;
+            ing->is_enemy = 0; 
+            break;
+        case MEAT: 
+            ing->texture = meat.texture; 
+            ing->sliced_tex1 = meat.sliced_tex1; 
+            ing->sliced_tex2 = meat.sliced_tex2;
+            ing->is_enemy = 0; 
+            break;
+        case BEANSPROUTS: 
+            ing->texture = beanSprouts.texture; 
+            ing->sliced_tex1 = beanSprouts.sliced_tex1; 
+            ing->sliced_tex2 = beanSprouts.sliced_tex2;
+            ing->is_enemy = 0; 
+            break;
+        case SHOES: 
+            ing->texture = shoes.texture; 
+            ing->sliced_tex1 = NULL; 
+            ing->sliced_tex2 = NULL;
+            ing->is_enemy = 1; 
+            break;
+        case STONE: 
+            ing->texture = stone.texture; 
+            ing->sliced_tex1 = NULL; 
+            ing->sliced_tex2 = NULL;
+            ing->is_enemy = 1; 
+            break;
+        default: 
+            ing->texture = cabbage.texture; 
+            ing->sliced_tex1 = cabbage.sliced_tex1; 
+            ing->sliced_tex2 = cabbage.sliced_tex2;
+            ing->is_enemy = 0; 
+            break;
     }
     
     //비율 유지하며 크기 조절하는 로직
@@ -206,7 +242,10 @@ void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int 
                 Ingredient *target = &ingredients[idx];
                 target->is_sliced = 1;
                 app.game.score += 10;
-                target->dy = -5.0f;
+                target->dy = -5.0f; 
+
+                CreateFragment(ing, 1); 
+                CreateFragment(ing, 2); 
             }
         }
     }
