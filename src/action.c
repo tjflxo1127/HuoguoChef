@@ -203,7 +203,43 @@ void ActIngredients(Ingredient *ingredients, int count) {
     }
 }
 
+// [베기 판정 로직]
+/*void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int y2) {
+    if (app.game.game_over) return;
 
+    for (int i = 0; i < count; i++) {
+        Ingredient *ing = &ingredients[i];
+
+        // 활성 상태이고 아직 잘리지 않은 재료만 체크
+        if (ing->is_active && !ing->is_sliced) {
+            SDL_Rect rect = { (int)ing->x, (int)ing->y, ing->w, ing->h };
+
+            if (CheckLineRectHit(x1, y1, x2, y2, &rect)) {
+                
+                // 1. 함정(적)인 경우: 즉시 게임 오버
+                if (ing->is_enemy) {
+                    PlayBombSound();
+                    app.game.lives = 0;     // 라이프 즉시 0
+                    app.game.game_over = 1; // 게임 오버
+                    StopBGM();              // BGM 정지
+                    ing->is_active = 0; 
+                } 
+                // 2. 일반 재료인 경우: 점수 추가 및 조각 생성
+                else {
+                    PlaySlashSound();
+                    app.game.score += 10;
+                    
+                    // 원본 재료는 화면에서 제거
+                    ing->is_active = 0;
+
+                    // [핵심] 조각 2개(왼쪽, 오른쪽) 생성
+                    CreateFragment(ing, 1); 
+                    CreateFragment(ing, 2); 
+                }
+            }
+        }
+    }
+} */
 
 void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int y2) {
     if (app.game.game_over) return;
