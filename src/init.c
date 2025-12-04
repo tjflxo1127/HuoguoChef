@@ -6,6 +6,7 @@
 #include "action.h"
 #include "draw.h"
 #include "input.h"
+#include "sound.h"
 // #include "score.h" // [추가]
 
 
@@ -72,6 +73,9 @@ void init_sdl(void) {
     
     InitIngredient();
     InitTrail();
+    // === [사운드 시스템/효과음 초기화 추가] ===
+    InitSound();       // 사운드 시스템 초기화
+    LoadEffects();     // 효과음(.wav) 파일 로드
 
     // 배경 설정
     app.background_texture = IMG_LoadTexture(app.g_renderer, "./gfx/background.png");
@@ -140,6 +144,8 @@ void cleanup_sdl(void) {
     if (app.font) TTF_CloseFont(app.font);
     if (app.g_renderer) SDL_DestroyRenderer(app.g_renderer);
     if (app.g_window) SDL_DestroyWindow(app.g_window);
+
+    CleanupSound(); //사운드 시스템 정리 추가
 
     TTF_Quit();
     IMG_Quit();
