@@ -5,6 +5,9 @@
 static Mix_Chunk *slash_sound = NULL;
 static Mix_Chunk *bomb_sound = NULL;
 
+// BGM 핸들
+static Mix_Music *bgm_music = NULL;
+
 void InitSound(void) {
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) {
         printf("SDL_mixer init error: %s\n", Mix_GetError());
@@ -17,6 +20,9 @@ void LoadEffects(void) {
 
     bomb_sound = Mix_LoadWAV("./sound/bomb.wav");
     if (!bomb_sound) printf("Bomb sound load error: %s\n", Mix_GetError());
+
+    bgm_music = Mix_LoadMUS("./sound/BGM.wav");
+    if (!bgm_music) printf("BGM load error: %s\n", Mix_GetError());
 }
 
 void PlaySlashSound(void) {
@@ -27,8 +33,23 @@ void PlayBombSound(void) {
     if (bomb_sound) Mix_PlayChannel(-1, bomb_sound, 0);
 }
 
+void PlayBGM(void) {
+    if (bgm_music) Mix_PlayMusic(bgm_music, -1);
+}
+
+void StopBGM(void) {
+    Mix_HaltMusic();
+}
+
+void SetBGMVolume(int volume) {
+    if (volume < 0) volume = 0;
+    if (volume > 128) volume = 128;
+    Mix_VolumeMusic(volume);
+}
+
 void CleanupSound(void) {
     if (slash_sound) Mix_FreeChunk(slash_sound);
     if (bomb_sound) Mix_FreeChunk(bomb_sound);
+    if (bgm_music) Mix_FreeMusic(bgm_music);
     Mix_CloseAudio();
 }
