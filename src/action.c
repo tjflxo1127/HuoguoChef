@@ -104,7 +104,10 @@ void ActIngredients(Ingredient *ingredients, int count) {
             if (CheckOutBound(ing)) {
                 if (!ing->is_sliced && !ing->is_enemy) {
                     app.game.lives--;
-                    if (app.game.lives <= 0) app.game.game_over = 1;
+                    if (app.game.lives <= 0) {
+                        app.game.game_over = 1;
+                        StopBGM(); // 게임 오버 시 BGM 정지
+                    }
                 }
                 ing->is_active = 0;
             }
@@ -138,7 +141,10 @@ void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int 
         if (has_enemy) {
             PlayBombSound(); // 폭탄, 신발, 돌 베었을 때 터짐
             app.game.lives--;
-            if (app.game.lives <= 0) app.game.game_over = 1;
+            if (app.game.lives <= 0) {
+                app.game.game_over = 1;
+                StopBGM(); // 게임 오버 시 BGM 정지
+            }
         } else {
             PlaySlashSound(); // 일반 재료 베면 효과음!
             for (int k = 0; k < hit_count; k++) {
@@ -160,8 +166,11 @@ void ResetGame(void) {
     app.game.lives = 3;
     app.game.game_over = 0;
     
-    // 모든 재료 제거
+   // 모든 재료 제거
     for (int i = 0; i < MAX_INGREDIENTS; i++) {
         app.game.ingredients[i].is_active = 0;
     }
+
+    // 게임 재시작 시 BGM 다시 재생
+    PlayBGM();
 }
