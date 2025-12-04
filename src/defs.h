@@ -35,10 +35,6 @@
 
 #define TRAIL_LENGTH 10    // 마우스 궤적 길이
 
-#define FONT_SIZE 20
-// [수정] 폰트 파일 이름을 상수로 정의 (경로 변경 시 여기만 바꾸면 됨)
-#define FONT_PATH "./ttf/LiberationSans-Regular.ttf" 
-
 // [추가] 파일 경로 및 리더보드 상수
 #define HIGH_SCORE_FILE "high_score.txt"
 #define LEADERBOARD_FILE "leaderboard.txt"
