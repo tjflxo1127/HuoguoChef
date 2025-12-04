@@ -55,10 +55,9 @@ void init_sdl(void) {
     if (!(IMG_Init(imgFlags) & imgFlags)) exit(1);
 
     app.font = TTF_OpenFont("./ttf/LiberationSans-Regular.ttf", FONTSIZE);
-    
     if (!app.font) {
         printf("[ERROR] Font Load Fail: %s\n", TTF_GetError());
-        printf("Current Path Check: please move '%s' to executable folder.\n", "./ttf/LiberationSans-Regular.ttf");
+        exit(1);
         // 폰트 없으면 게임 진행이 어려우므로 종료
     }
 
@@ -74,7 +73,10 @@ void init_sdl(void) {
 
     // 배경 설정
     app.background_texture = IMG_LoadTexture(app.g_renderer, "./gfx/background.png");
-    if(!app.background_texture) printf("배경 로드 실패: %s\n", IMG_GetError());
+    if(!app.background_texture){
+        printf("배경 로드 실패-기본 배경: %s\n", IMG_GetError());
+        app.background_texture = NULL;
+    }
     
     score_text.texture = NULL;
     life_text.texture = NULL;
