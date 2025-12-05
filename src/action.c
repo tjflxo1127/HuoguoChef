@@ -186,6 +186,17 @@ void ActIngredients(Ingredient *ingredients, int count) {
             ing->x += ing->dx;
             ing->y += ing->dy;
 
+            // 1. 왼쪽 벽 충돌 (x < 0)
+            if (ing->x < 0) {
+                ing->x = 0;          // 벽 밖으로 나가지 않게 위치 보정
+                ing->dx = -ing->dx;  // 속도 반전 (튕기기)
+            }
+            // 2. 오른쪽 벽 충돌 (x + w > SCREEN_WIDTH)
+            else if (ing->x + ing->w > SCREEN_WIDTH) {
+                ing->x = SCREEN_WIDTH - ing->w; // 벽 안쪽으로 위치 보정
+                ing->dx = -ing->dx;             // 속도 반전
+            }
+
             if (CheckOutBound(ing)) {
                 if (!ing->is_sliced && !ing->is_enemy) {
                     app.game.lives--;
