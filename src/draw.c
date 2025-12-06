@@ -9,10 +9,6 @@
 extern Ingredient heart_red;
 extern Ingredient heart_black;
 
-// 색상 상수 정의
-const SDL_Color COLOR_WHITE = {255, 255, 255, 255};
-const SDL_Color COLOR_RED = {255, 50, 50, 255};
-const SDL_Color COLOR_YELLOW = {255, 255, 0, 255};
 
 // 1. 화면 지우기
 void ClearWindow(App *app) {
