@@ -26,7 +26,7 @@ int CheckOutBound(Ingredient *ing) {
     // 화면 아래쪽(SCREEN_HEIGHT)보다 더 아래로 내려갔는지 확인
     // (완전히 사라지게 하기 위해 여유분 50픽셀 정도를 둡니다)
     
-    if (ing->y > SCREEN_HEIGHT + 50){
+    if (ing->y > SCREEN_HEIGHT){
         return 1;
     }
 
