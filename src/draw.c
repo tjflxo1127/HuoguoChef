@@ -94,6 +94,13 @@ void DrawGame(App *app, TextObject *score, TextObject *go, TextObject *restart) 
                 }
             }
         }
+        /* 각자 테스트 해보시길...
+        // [디버깅용] 냄비 범위 눈으로 확인하기 (빨간 테두리)
+        // 위치: DrawGame 함수 맨 끝, 닫는 괄호 } 바로 위에 넣으세요.
+        SDL_SetRenderDrawColor(app->g_renderer, 255, 0, 0, 255); // 빨간색
+        SDL_Rect debug_rect = { POT_X, POT_Y, POT_W, POT_H };
+        SDL_RenderDrawRect(app->g_renderer, &debug_rect);
+        */
     }
 
     // C. 점수판 (Score) 그리기
