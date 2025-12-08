@@ -42,12 +42,6 @@
 #define TRAIL_LENGTH 10    // 마우스 궤적 길이
 
 
-// 색상 상수 정의 
-#define COLOR_WHITE {255, 255, 255, 255}
-#define COLOR_RED {255, 50, 50, 255}
-#define COLOR_YELLOW {255, 255, 0, 255}
-
-
 // 재료 타입 열거형
 typedef enum {MUSHROOM, CABBAGE, MEAT, BEANSPROUTS, SHOES, STONE} TypeIngredient;
 
