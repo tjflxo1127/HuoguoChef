@@ -23,7 +23,7 @@ void ShowWindow(App *app) {
 }
 
 // 3. 텍스트 -> 텍스처 변환 (Surface -> Texture 변환)
-void UpdateScoreBoard(App *app, TextObject *text_obj, char *str, SDL_Color color) {
+void TextureSmallText(App *app, TextObject *text_obj, char *str, SDL_Color color) {
     // 폰트 로드 실패 시 중단
     if (app->font == NULL) return;
 
