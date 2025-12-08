@@ -5,7 +5,8 @@
 #include "utils.h"
 #include "sound.h" 
 
-static int GetCurrentSpawnInterval(void); //현재 스폰 간격 계산하는 함수
+//현재 스폰 간격 계산하는 헬퍼 함수
+static int GetCurrentSpawnInterval(void); 
 
 // 스택(냄비) 관련 헬퍼 함수
 static void AddToStack(Ingredient *ing);
