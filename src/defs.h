@@ -15,6 +15,15 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
+//action 관련 상수
+
+#define SPAWN_INTERVAL_MAX 40        // 초기 스폰 간격 (40프레임 = 약 0.67초)
+#define SPAWN_INTERVAL_MIN 5       // 최소 스폰 간격 (10프레임 = 약 0.17초)
+#define DIFFICULTY_SCORE_RATE 50   // 50점마다 스폰 간격이 1씩 감소
+
+#define LAUNCH_SPEED_MIN 20.0f
+#define LAUNCH_SPEED_MAX 27.0f
+
 // 상수 정의
 #define FPS 60
 #define BUFSIZE 1024
