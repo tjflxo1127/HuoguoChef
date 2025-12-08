@@ -221,6 +221,7 @@ void DrawGame(App *app, TextObject *score, TextObject *go, TextObject *restart) 
 
         // 게임 오버 및 재시작 텍스트 그리기
         RenderScoreBoard(app, go);
+        RenderScoreBoard(app, &gameover_score_text);
         RenderScoreBoard(app, restart);
     }
 }
@@ -266,7 +267,16 @@ void render_game(void) {
 
         last_lives = app.game.lives;
     }
-
+    
+    // [추가] 게임 오버 시 최종 점수 표시
+    if (app.game.game_over) {
+        char final_score_str[64];
+        sprintf(final_score_str, "Final Score: %d", app.game.score);
+        UpdateScoreBoard(&app, &gameover_score_text, final_score_str, white);
+        gameover_score_text.rect.x = (SCREEN_WIDTH - gameover_score_text.rect.w) / 2;
+        gameover_score_text.rect.y = SCREEN_HEIGHT / 2 - 30;
+    }
+    
     // 그리기 함수 호출
     DrawGame(&app, &score_text, &gameover_text, &restart_text);
     ShowWindow(&app);
