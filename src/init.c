@@ -115,9 +115,13 @@ void init_sdl(void) {
 
     // 위치 설정 (화면 중앙)
     gameover_text.rect.x = (SCREEN_WIDTH - gameover_text.rect.w) / 2;
-    gameover_text.rect.y = SCREEN_HEIGHT / 2 - 50;
+    gameover_text.rect.y = SCREEN_HEIGHT / 2 - 70;
     restart_text.rect.x = (SCREEN_WIDTH - restart_text.rect.w) / 2;
     restart_text.rect.y = SCREEN_HEIGHT / 2 + 10;
+
+     // 게임 오버 점수 텍스트 초기 위치 설정 (실제 위치는 게임 중에 업데이트)
+    gameover_score_text.rect.x = (SCREEN_WIDTH - 200) / 2; // 대략적인 중앙
+    gameover_score_text.rect.y = SCREEN_HEIGHT / 2 - 30;
 
     // 타이틀 텍스트 위치 설정
     title_text.rect.x = (SCREEN_WIDTH - title_text.rect.w) / 2;
@@ -148,6 +152,7 @@ void cleanup_sdl(void) {
     if (life_text.texture) SDL_DestroyTexture(life_text.texture);
     if (gameover_text.texture) SDL_DestroyTexture(gameover_text.texture);
     if (restart_text.texture) SDL_DestroyTexture(restart_text.texture);
+    if (gameover_score_text.texture) SDL_DestroyTexture(gameover_score_text.texture);
     if (title_text.texture) SDL_DestroyTexture(title_text.texture);
     if (subtitle_text.texture) SDL_DestroyTexture(subtitle_text.texture);
     if (rule1_text.texture) SDL_DestroyTexture(rule1_text.texture);
