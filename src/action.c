@@ -61,7 +61,7 @@ void SpawnIngredient(void) {
 
     int center_x = SCREEN_WIDTH / 2;
     int offset_x = RandInt(-50, 51);
-    ing->x = (float)(center_x + offset_x);
+    ing->x = (float)(center_x + offset_x); 
     ing->y = (float)SCREEN_HEIGHT;
 
     double angle_deg = RandDouble(60.0, 120.0); //60도에서 120도 사이 랜덤 각도
