@@ -247,7 +247,7 @@ void render_game(void) {
     if (app.game.score != last_score) {
         char score_str[64];
         sprintf(score_str, "Score: %d", app.game.score);
-        UpdateScoreBoard(&app, &score_text, score_str, black);
+        TextureSmallText(&app, &score_text, score_str, black);
         score_text.rect.x = 20; score_text.rect.y = 20;
         
         last_score = app.game.score; // 현재 점수 기억
