@@ -49,7 +49,7 @@ void TextureSmallText(App *app, TextObject *text_obj, char *str, SDL_Color color
 }
 
 // 3-1. 타이틀용 큰 텍스트 변환
-void UpdateTitleBoard(App *app, TextObject *text_obj, char *str, SDL_Color color) {
+void TextureBigText(App *app, TextObject *text_obj, char *str, SDL_Color color) {
     // 타이틀 폰트 로드 실패 시 중단
     if (app->title_font == NULL) return;
 
