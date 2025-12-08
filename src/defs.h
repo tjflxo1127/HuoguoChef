@@ -94,6 +94,9 @@ typedef struct {
     int score;          // 현재 점수
     int lives;          // 남은 목숨
 
+    int last_score;     // 이전 점수
+    int last_lives;     // 이전 목숨
+
     int game_over;      // 게임 종료 여부
     int title_screen;   // 타이틀 화면 표시 여부
 
