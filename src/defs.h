@@ -56,12 +56,6 @@
 // 재료 타입 열거형
 typedef enum {MUSHROOM, CABBAGE, MEAT, BEANSPROUTS, SHOES, STONE} TypeIngredient;
 
-//  리더보드 엔트리 구조체
-typedef struct {
-    int score;
-    // 날짜나 이름도 넣을 수 있지만 일단 점수만 저장
-} LeaderboardEntry;
-
 // 텍스트 객체 구조체
 typedef struct {
     SDL_Texture *texture; // 글자 이미지 데이터
@@ -99,9 +93,6 @@ typedef struct {
 typedef struct {
     int score;          // 현재 점수
     int lives;          // 남은 목숨
-
-    int last_score;     // 이전 점수
-    int last_lives;     // 이전 목숨
 
     int game_over;      // 게임 종료 여부
     int title_screen;   // 타이틀 화면 표시 여부
