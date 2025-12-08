@@ -227,11 +227,10 @@ void ActIngredients(Ingredient *ingredients, int count) {
                 }
             }
 
-            // 화면 밖 확인
-            if (CheckOutBound(ing)) {
-                // [추가] 조건 5: 잘린 재료가 냄비를 빗나가서 화면 밖으로 나가면
-                // 냄비 안 랜덤 위치에 강제로 쌓임
-                if (ing->is_sliced && !ing->is_enemy) {
+            if (ing->y > SCREEN_HEIGHT) {  // 재료가 화면에 나타날 때
+
+                //잘린 재료가 냄비를 빗나가서 화면 밖으로 나가면 냄비 안 랜덤 위치에 강제로 쌓임 
+                if (ing->is_sliced && !ing->is_enemy) { 
                     AddToStackRandom(ing);
                 }
                 // 적이거나 안 잘린 재료가 떨어지면 목숨 차감 로직
