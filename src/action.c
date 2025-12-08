@@ -64,14 +64,14 @@ void SpawnIngredient(void) {
     ing->x = (float)(center_x + offset_x);
     ing->y = (float)SCREEN_HEIGHT;
 
-    double angle_deg = RandDouble(60.0, 120.0);
+    double angle_deg = RandDouble(60.0, 120.0); //60도에서 120도 사이 랜덤 각도
     double angle_rad = angle_deg * (PI / 180.0); // 각도 -> 라디안
-    double speed = RandDouble(LAUNCH_SPEED_MIN, LAUNCH_SPEED_MAX);
+    double speed = RandDouble(LAUNCH_SPEED_MIN, LAUNCH_SPEED_MAX); //최저 속도, 최대 속도 사이 랜덤 발사 속도
+ 
+    ing->dx = (float)(speed * cos(angle_rad)); //초기 발사속도 수평
+    ing->dy = (float)(-speed * sin(angle_rad)); //초기 발사속도 수직
 
-    ing->dx = (float)(speed * cos(angle_rad));
-    ing->dy = (float)(-speed * sin(angle_rad));
-
-    ing->type = RandInt(0, 6);
+    ing->type = RandInt(0, 6); //랜덤으로 재료 타입 배정정
 
     switch (ing->type) {
         case MUSHROOM: 
