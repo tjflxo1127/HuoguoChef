@@ -127,7 +127,6 @@ typedef struct {
 // 색상 정의
 extern SDL_Color white;
 extern SDL_Color red;
-extern SDL_Color yellow;
 extern SDL_Color black;
 
 // 전역 변수 선언 (extern)
