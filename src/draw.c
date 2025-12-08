@@ -242,16 +242,12 @@ void render_game(void) {
         return;
     }
 
-    // 색상 정의
-    SDL_Color white = {255, 255, 255, 255};
-    SDL_Color red = {255, 50, 50, 255};
-
     // [최적화] 점수가 바뀌었을 때만 텍스처 재생성
     static int last_score = -1; // static 변수를 쓰거나 app 구조체에 넣으세요
     if (app.game.score != last_score) {
         char score_str[64];
         sprintf(score_str, "Score: %d", app.game.score);
-        UpdateScoreBoard(&app, &score_text, score_str, white);
+        UpdateScoreBoard(&app, &score_text, score_str, black);
         score_text.rect.x = 20; score_text.rect.y = 20;
         
         last_score = app.game.score; // 현재 점수 기억
