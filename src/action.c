@@ -1,10 +1,28 @@
 #include "action.h"
 
-#define SPAWN_INTERVAL 40
+#define SPAWN_INTERVAL_MAX 40        // 초기 스폰 간격 (40프레임 = 약 0.67초)
+#define SPAWN_INTERVAL_MIN 5       // 최소 스폰 간격 (10프레임 = 약 0.17초)
+#define DIFFICULTY_SCORE_RATE 50   // 50점마다 스폰 간격이 1씩 감소
+
 #define LAUNCH_SPEED_MIN 20.0f
 #define LAUNCH_SPEED_MAX 27.0f
 
 static int spawn_timer = 0;
+
+static int GetCurrentSpawnInterval(void) {
+    // 점수에 비례하여 감소할 값 계산 (50점당 1 감소)
+    int reduction = app.game.score / DIFFICULTY_SCORE_RATE; 
+
+    // 최대값에서 감소분을 빼서 현재 간격을 구함
+    int current_interval = SPAWN_INTERVAL_MAX - reduction;
+
+    // 간격이 최소값(SPAWN_INTERVAL_MIN)보다 작아지지 않도록 보정
+    if (current_interval < SPAWN_INTERVAL_MIN) {
+        current_interval = SPAWN_INTERVAL_MIN;
+    }
+
+    return current_interval;
+}
 
 // [추가] 스택에 재료 추가하는 내부 함수
 static void AddToStack(
@@ -293,8 +311,12 @@ void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int 
 void update_game(void) {
     if (app.game.game_over || app.game.title_screen) return;
 
+
+    // [수정] 현재 난이도에 맞는 스폰 간격을 계산
+    int current_interval = GetCurrentSpawnInterval(); 
+
     spawn_timer++;
-    if (spawn_timer > SPAWN_INTERVAL) {
+    if (spawn_timer > current_interval) {
         SpawnIngredient();
         spawn_timer = 0;
     }
