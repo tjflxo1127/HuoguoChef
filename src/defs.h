@@ -42,11 +42,6 @@
 #define TRAIL_LENGTH 10    // 마우스 궤적 길이
 
 
-// 파일 경로 및 리더보드 상수
-#define HIGH_SCORE_FILE "high_score.txt"
-#define LEADERBOARD_FILE "leaderboard.txt"
-#define MAX_LEADERBOARD_ENTRIES 5
-
 // 색상 상수 정의 
 #define COLOR_WHITE {255, 255, 255, 255}
 #define COLOR_RED {255, 50, 50, 255}
