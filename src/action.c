@@ -3,13 +3,13 @@
 static int spawn_timer = 0;
 
 static int GetCurrentSpawnInterval(void) {
-    // 점수에 비례하여 감소할 값 계산 (50점당 1 감소)
+    // 점수에 비례하여 감소할 값 계산 (DIFFICULTY_SCORE_RATE 점수 당 1 감소)
     int reduction = app.game.score / DIFFICULTY_SCORE_RATE; 
 
     // 최대값에서 감소분을 빼서 현재 간격을 구함
     int current_interval = SPAWN_INTERVAL_MAX - reduction;
 
-    // 간격이 최소값(SPAWN_INTERVAL_MIN)보다 작아지지 않도록 보정
+    // 간격이 최소값(SPAWN_INTERVAL_MIN)보다 작아지지 않도록 보정.
     if (current_interval < SPAWN_INTERVAL_MIN) {
         current_interval = SPAWN_INTERVAL_MIN;
     }
