@@ -101,15 +101,15 @@ void init_sdl(void) {
     rule3_text.texture = NULL;
 
     
-    UpdateScoreBoard(&app, &gameover_text, "GAME OVER", red);
-    UpdateScoreBoard(&app, &restart_text, "Press 'R' to Restart", yellow);
-    UpdateTitleBoard(&app, &title_text, "Huoguo Chef", red);
+    TextureBigText(&app, &title_text, "Huoguo Chef", red);
     
-    UpdateScoreBoard(&app, &subtitle_text, "Press R to Start", white);
-    UpdateScoreBoard(&app, &rule1_text, "Meat: 30 points, Mushroom/Cabbage/BeanSprouts: 10 points", black);
-    UpdateScoreBoard(&app, &rule2_text, "Shoes/Stone: Game Over!", black);
-    UpdateScoreBoard(&app, &rule3_text, "Miss Ingredient: Life -1 (Total 3)", black);
-    mushroom, cabbage, meat, beanSprouts, shoes, stone;
+    TextureSmallText(&app, &subtitle_text, "Press R to Start", white);
+    TextureSmallText(&app, &rule1_text, "Meat: 30 points, Mushroom/Cabbage/BeanSprouts: 10 points", black);
+    TextureSmallText(&app, &rule2_text, "Shoes/Stone: Game Over!", black);
+    TextureSmallText(&app, &rule3_text, "Miss Ingredient: Life -1 (Total 3)", black);
+
+    TextureSmallText(&app, &gameover_text, "GAME OVER", red);
+    TextureSmallText(&app, &restart_text, "Press 'R' to Restart", white);
 
     // 위치 설정 (화면 중앙)
     gameover_text.rect.x = (SCREEN_WIDTH - gameover_text.rect.w) / 2;
