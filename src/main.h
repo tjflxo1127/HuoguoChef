@@ -7,6 +7,12 @@
 #include "action.h"
 #include "draw.h"
 
+// 색상 정의
+SDL_Color white = {255, 255, 255, 255};
+SDL_Color red = {255, 50, 50, 255};
+SDL_Color yellow = {255, 255, 0, 255};
+SDL_Color black = {0, 0, 0, 255};
+
 // 전역 변수 정의 (defs.h의 App 구조체 사용)
 App app;                        // 앱 객체
 int g_game_running = 1;         // 게임 루프 플래그
