@@ -8,8 +8,8 @@ void ClearWindow(App *app);
 void ShowWindow(App *app);
 
 // 텍스처 헬퍼 함수
-void UpdateScoreBoard(App *app, TextObject *text_obj, char *str, SDL_Color color);
-void UpdateTitleBoard(App *app, TextObject *text_obj, char *str, SDL_Color color);
+void TextureSmallText(App *app, TextObject *text_obj, char *str, SDL_Color color);
+void TextureBigText(App *app, TextObject *text_obj, char *str, SDL_Color color);
 
 // 개별 객체 그리기 
 void RenderEntity(App *app, Ingredient *ing);
