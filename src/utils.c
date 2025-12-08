@@ -20,19 +20,6 @@ int CheckLineRectHit(int x1, int y1, int x2, int y2, const SDL_Rect *rect) {
     return 0;
 }
 
-// 재료가 화면 밖(특히 바닥)으로 나갔는지 확인->화면에 튕기는 걸로 바꿀듯
-// 재료가 바닥으로 떨어졌을 때(목숨 차감 등)를 감지합니다.
-int CheckOutBound(Ingredient *ing) {
-    // 화면 아래쪽(SCREEN_HEIGHT)보다 더 아래로 내려갔는지 확인
-    // (완전히 사라지게 하기 위해 여유분 50픽셀 정도를 둡니다)
-    
-    if ((ing->y > SCREEN_HEIGHT)) {
-        return 1;
-    }
-
-    return 0; // 아직 화면 안에 있거나 유효한 범위임
-}
-
 // 정수 난수 생성 (min 이상 max 미만)
 // 재료 타입 결정(0~5) 등에 사용합니다.
 int RandInt(int min, int max) {
