@@ -47,8 +47,3 @@ double RandDouble(double min, double max) {
     double scale = (double)rand() / (double)RAND_MAX;
     return min + scale * (max - min);
 }
-
-// Degree -> Radian 변환
-double DegToRad(double degrees) {
-    return degrees * (PI / 180.0);
-}
