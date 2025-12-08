@@ -258,7 +258,7 @@ void render_game(void) {
     if (app.game.lives != last_lives) {
         char life_str[64];
         sprintf(life_str, "Lives: %d", app.game.lives);
-        UpdateScoreBoard(&app, &life_text, life_str, red);
+        TextureSmallText(&app, &life_text, life_str, red);
         life_text.rect.x = 20; life_text.rect.y = 50;
 
         last_lives = app.game.lives;
@@ -268,7 +268,7 @@ void render_game(void) {
     if (app.game.game_over) {
         char final_score_str[64];
         sprintf(final_score_str, "Final Score: %d", app.game.score);
-        UpdateScoreBoard(&app, &gameover_score_text, final_score_str, white);
+        TextureSmallText(&app, &gameover_score_text, final_score_str, white);
         gameover_score_text.rect.x = (SCREEN_WIDTH - gameover_score_text.rect.w) / 2;
         gameover_score_text.rect.y = SCREEN_HEIGHT / 2 - 30;
     }
