@@ -100,10 +100,7 @@ void init_sdl(void) {
     rule2_text.texture = NULL;
     rule3_text.texture = NULL;
 
-    // [추가] 고정 텍스트 미리 생성 (게임 오버, 재시작, 타이틀)
-    SDL_Color red = {255, 50, 50, 255};
-    SDL_Color white = {255, 255, 255, 255};
-    SDL_Color yellow = {255, 255, 0, 255};
+    
     UpdateScoreBoard(&app, &gameover_text, "GAME OVER", red);
     UpdateScoreBoard(&app, &restart_text, "Press 'R' to Restart", white);
     UpdateTitleBoard(&app, &title_text, "Huoguo Chef", red);
