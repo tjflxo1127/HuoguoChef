@@ -57,7 +57,7 @@ void init_sdl(void) {
     int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
     if (!(IMG_Init(imgFlags) & imgFlags)) exit(1);
 
-    app.font = TTF_OpenFont("./ttf/LiberationSans-Regular.ttf", FONTSIZE);
+    app.font = TTF_OpenFont("./ttf/NotoSansKR-Regular.ttf", FONTSIZE);
     if (!app.font) {
         printf("[ERROR] Font Load Fail: %s\n", TTF_GetError());
         exit(1);
@@ -65,7 +65,7 @@ void init_sdl(void) {
     }
     
     // 타이틀용 큰 폰트 로드 (기본 폰트의 2배 크기)
-    app.title_font = TTF_OpenFont("./ttf/LiberationSans-Regular.ttf", FONTSIZE * 2);
+    app.title_font = TTF_OpenFont("./ttf/NotoSansKR-Regular.ttf", FONTSIZE * 2);
     if (!app.title_font) {
         printf("[ERROR] Title Font Load Fail: %s\n", TTF_GetError());
         // 타이틀 폰트 실패 시 기본 폰트로 대체
