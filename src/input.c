@@ -12,14 +12,17 @@ void handle_events(void) {
             if (event.key.keysym.sym == SDLK_ESCAPE) {
                 g_game_running = 0;
             }
-            // [추가] 게임 오버 시 R키로 재시작
-            if (app.game.game_over && event.key.keysym.sym == SDLK_r) {
-                ResetGame();
-            }
+
             // [추가] 타이틀 화면에서 R키로 게임 시작
             if (app.game.title_screen && event.key.keysym.sym == SDLK_r) {
                 app.game.title_screen = 0;
             }
+            
+            // [추가] 게임 오버 시 R키로 재시작
+            if (app.game.game_over && event.key.keysym.sym == SDLK_r) {
+                ResetGame();
+            }
+            
         }
 
         // 마우스 움직임 처리
