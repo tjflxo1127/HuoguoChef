@@ -268,7 +268,7 @@ void render_game(void) {
     if (app.game.game_over) {
         char final_score_str[64];
         sprintf(final_score_str, "Final Score: %d", app.game.score);
-        TextureSmallText(&app, &gameover_score_text, final_score_str, white);
+        TextureSmallText(&app, &gameover_score_text, final_score_str, yellow);
         gameover_score_text.rect.x = (SCREEN_WIDTH - gameover_score_text.rect.w) / 2;
         gameover_score_text.rect.y = SCREEN_HEIGHT / 2 - 30;
     }
