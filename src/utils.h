@@ -20,14 +20,6 @@
  */
 int CheckLineRectHit(int x1, int y1, int x2, int y2, const SDL_Rect *rect);
 
-/**
- * @brief 재료가 화면 밖(바닥)으로 나갔는지 확인합니다.
- * 재료가 바닥으로 떨어졌을 때 목숨을 차감하거나 비활성화하기 위해 사용합니다.
- * @return 1(화면 밖), 0(화면 안)
- */
-int CheckOutBound(Ingredient *ing);
-
-
 // [난수 생성 함수]
 
 /**
