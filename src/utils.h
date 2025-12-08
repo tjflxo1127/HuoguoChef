@@ -43,12 +43,4 @@ int RandInt(int min, int max);
 double RandDouble(double min, double max);
 
 
-// [수학 보조 함수]
-
-/**
- * @brief 각도(Degree)를 라디안(Radian)으로 변환합니다.
- * C언어의 sin, cos 함수는 라디안 값을 받기 때문에 필수적입니다.
- */
-double DegToRad(double degrees);
-
 #endif
