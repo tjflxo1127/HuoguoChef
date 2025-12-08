@@ -243,7 +243,7 @@ void render_game(void) {
     }
 
     // [최적화] 점수가 바뀌었을 때만 텍스처 재생성
-    static int last_score = -1; // static 변수를 쓰거나 app 구조체에 넣으세요
+    static int last_score = -1;
     if (app.game.score != last_score) {
         char score_str[64];
         sprintf(score_str, "Score: %d", app.game.score);
