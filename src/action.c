@@ -54,7 +54,7 @@ void SpawnIngredient(void) {
     ing->y = (float)SCREEN_HEIGHT;
 
     double angle_deg = RandDouble(60.0, 120.0);
-    double angle_rad = DegToRad(angle_deg);
+    double angle_rad = angle_deg * (PI / 180.0); // 각도 -> 라디안
     double speed = RandDouble(LAUNCH_SPEED_MIN, LAUNCH_SPEED_MAX);
 
     ing->dx = (float)(speed * cos(angle_rad));
