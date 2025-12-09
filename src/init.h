@@ -9,6 +9,8 @@
 
 // 초기화 및 정리 함수
 void init_sdl(void);
+
+void InitUI();
 void InitIngredient(void);
 void InitTrail(void);
 void cleanup_sdl(void);
