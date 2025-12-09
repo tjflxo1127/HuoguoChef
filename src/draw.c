@@ -193,15 +193,10 @@ void DrawGame(App *app, TextObject *score, TextObject *go, TextObject *restart) 
     // C. 점수판 (Score) 그리기
     RenderScoreBoard(app, score);
 
-    // [수정] 목숨 하트 그리기 위치 조정
-    // 점수판(score) 바로 밑에 그리기 위해 start_y 값을 수정합니다.
-    // score 텍스트가 대략 y=20 위치에 그려진다면, 하트는 y=60 정도로 내리면 적당합니다.
-    int start_x = 20;  // 점수판과 같은 왼쪽 정렬 (x=20)
-    int start_y = 60;  // 점수판 아래로 위치 이동 (y=20 + 높이 + 여백)
-    int gap = 35;      // 하트 간격
-
+    
+    // 목숨 하트 그리기
     for (int i = 1; i <= 3; i++) {
-        SDL_Rect dest = {start_x + (i-1)*gap, start_y, HEART_SIZE, HEART_SIZE};
+        SDL_Rect dest = {UI_HEARTS_X + (i-1)*UI_HEART_GAP, UI_HEARTS_Y, HEART_SIZE, HEART_SIZE};
         
         // 현재 남은 목숨 수에 따라 빨간 하트 또는 검은 하트 그리기
         if (app->game.lives >= i) {
@@ -215,7 +210,7 @@ void DrawGame(App *app, TextObject *score, TextObject *go, TextObject *restart) 
     if (app->game.game_over) {
         // 반투명 검은 막 씌우기
         SDL_SetRenderDrawBlendMode(app->g_renderer, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(app->g_renderer, 0, 0, 0, 200); // Alpha 200
+        SDL_SetRenderDrawColor(app->g_renderer, 0, 0, 0, UI_ALPHA_OVERLAY);
         SDL_Rect screen_rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
         SDL_RenderFillRect(app->g_renderer, &screen_rect);
         SDL_SetRenderDrawBlendMode(app->g_renderer, SDL_BLENDMODE_NONE); // 복구
@@ -249,7 +244,8 @@ void render_game(void) {
         char score_str[64];
         sprintf(score_str, "Score: %d", app.game.score);
         TextureSmallText(&app, &score_text, score_str, black);
-        score_text.rect.x = 20; score_text.rect.y = 20;
+        score_text.rect.x = UI_SCORE_X;
+        score_text.rect.y = UI_SCORE_Y;
         
         last_score = app.game.score; // 현재 점수 기억
     }
@@ -261,7 +257,7 @@ void render_game(void) {
         sprintf(final_score_str, "Final Score: %d", app.game.score);
         TextureSmallText(&app, &gameover_score_text, final_score_str, yellow);
         gameover_score_text.rect.x = (SCREEN_WIDTH - gameover_score_text.rect.w) / 2;
-        gameover_score_text.rect.y = SCREEN_HEIGHT / 2 - 30;
+        gameover_score_text.rect.y = SCREEN_HEIGHT / 2 - UI_GAMEOVER_Y_OFFSET;
     }
     
     // 그리기 함수 호출
