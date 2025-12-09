@@ -18,7 +18,7 @@ void TextureBigText(App *app, TextObject *text_obj, char *str, SDL_Color color);
 
 // 개별 객체 그리기 
 void RenderEntity(App *app, Ingredient *ing);
-void RenderStack(App *app);  // 냄비에 재료 쌓이는 거 구현하는 함수
+void RenderStack(App *app);
 void RenderScoreBoard(App *app, TextObject *text_obj);
 
 // 전체 화면 구성(게임 전체 그리기)
