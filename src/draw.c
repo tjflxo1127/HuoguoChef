@@ -5,11 +5,12 @@
  */
 #include "draw.h"
 
-// 1. 화면 지우기
+// 1. 화면 초기화
 void ClearWindow(App *app) {
-    SDL_SetRenderDrawColor(app->g_renderer, 30, 30, 30, 255);
+    SDL_SetRenderDrawColor(app->g_renderer, 0, 0, 0, 255); // 배경 이미지를 사용할 것이지만 이미지 로드 실패했을 경우 검은 배경 초기화
     SDL_RenderClear(app->g_renderer);
 
+    // 배경 이미지 화면 출력
     if (app->background_texture != NULL) {
         SDL_RenderCopy(app->g_renderer, app->background_texture, NULL, NULL);
     }
@@ -20,10 +21,11 @@ void ShowWindow(App *app) {
     SDL_RenderPresent(app->g_renderer);
 }
 
-// 3. 텍스트 -> 텍스처 변환 (Surface -> Texture 변환)
+// 3. 글자 -> 그림으로 변환 (String -> Texture 변환)
 void TextureSmallText(App *app, TextObject *text_obj, char *str, SDL_Color color) {
     // 폰트 로드 실패 시 중단
-    if (app->font == NULL) return;
+    if (app->font == NULL)
+        return;
 
     // 기존 텍스처 삭제 (메모리 누수 방지)
     if (text_obj->texture != NULL) {
@@ -33,7 +35,8 @@ void TextureSmallText(App *app, TextObject *text_obj, char *str, SDL_Color color
 
     // Surface 생성
     SDL_Surface *surface = TTF_RenderText_Solid(app->font, str, color);
-    if (surface == NULL) return;
+    if (surface == NULL)
+        return;
 
     // Texture 생성
     text_obj->texture = SDL_CreateTextureFromSurface(app->g_renderer, surface);
@@ -46,7 +49,7 @@ void TextureSmallText(App *app, TextObject *text_obj, char *str, SDL_Color color
     SDL_FreeSurface(surface);
 }
 
-// 3-1. 타이틀용 큰 텍스트 변환
+// 3-1. 타이틀용 큰 텍스트 그림으로 변환 
 void TextureBigText(App *app, TextObject *text_obj, char *str, SDL_Color color) {
     // 타이틀 폰트 로드 실패 시 중단
     if (app->title_font == NULL) return;
@@ -76,17 +79,17 @@ void TextureBigText(App *app, TextObject *text_obj, char *str, SDL_Color color) 
 void RenderEntity(App *app, Ingredient *ing) {
     if (ing->texture == NULL) return;
 
-    SDL_Rect dest;
-    dest.x = (int)ing->x;
+    SDL_Rect dest; 
+    dest.x = (int)ing->x; // 재료의 좌표(float타입)을 화면 픽셀 좌표(int타입)으로 바꿔서 저장
     dest.y = (int)ing->y;
     dest.w = ing->w;
     dest.h = ing->h;
 
-    // 잘린 재료 시각 효과
+    // 잘린 재료 시각 효과 : 잘리지 않은 재료와 구분
     if (ing->is_sliced) {
-        // 1. 색상을 어둡게 (R, G, B 값을 줄임)
+        // 잘린 후 색상을 어둡게 (R, G, B 값을 줄임)
         SDL_SetTextureColorMod(ing->texture, 150, 150, 150);
-        // 2. 약간 반투명하게
+        // 약간 반투명하게 바꿈
         SDL_SetTextureAlphaMod(ing->texture, 200);
     } else {
         // 원래 색상과 불투명도 복구
