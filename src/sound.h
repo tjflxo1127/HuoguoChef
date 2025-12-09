@@ -8,14 +8,14 @@
 
 #include "defs.h"
 
-// 효과음 핸들
-static Mix_Chunk *slash_sound = NULL;
-static Mix_Chunk *bomb_sound = NULL;
-static Mix_Chunk *gameover_sound = NULL;
-static Mix_Chunk *missingredient_sound = NULL;
+// 효과음 핸들 (extern 선언 - 실제 정의는 sound.c에 있음)
+extern Mix_Chunk *slash_sound;
+extern Mix_Chunk *bomb_sound;
+extern Mix_Chunk *gameover_sound;
+extern Mix_Chunk *missingredient_sound;
 
 // BGM 핸들
-static Mix_Music *bgm_music = NULL;
+extern Mix_Music *bgm_music;
 
 // 효과음 초기화/종료 함수
 void InitSound(void);
