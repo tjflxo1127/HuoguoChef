@@ -55,6 +55,15 @@
 
 #define TRAIL_LENGTH 10    // 마우스 궤적 길이
 
+// UI 위치 상수
+#define UI_SCORE_X 20           // 점수판 X 위치
+#define UI_SCORE_Y 20           // 점수판 Y 위치
+#define UI_HEARTS_X 20          // 하트 시작 X 위치
+#define UI_HEARTS_Y 60          // 하트 시작 Y 위치
+#define UI_HEART_GAP 35         // 하트 간격
+#define UI_GAMEOVER_Y_OFFSET 30 // 게임 오버 텍스트 Y 오프셋
+#define UI_ALPHA_OVERLAY 200    // 게임 오버 오버레이 투명도 (0-255)
+
 
 // 재료 타입 열거형
 typedef enum {MUSHROOM, CABBAGE, MEAT, BEANSPROUTS, SHOES, STONE} TypeIngredient;
