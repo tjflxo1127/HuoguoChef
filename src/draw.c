@@ -252,17 +252,6 @@ void render_game(void) {
         
         last_score = app.game.score; // 현재 점수 기억
     }
-
-    // [최적화] 목숨이 바뀌었을 때만 텍스처 재생성
-    static int last_lives = -1;
-    if (app.game.lives != last_lives) {
-        char life_str[64];
-        sprintf(life_str, "Lives: %d", app.game.lives);
-        TextureSmallText(&app, &life_text, life_str, red);
-        life_text.rect.x = 20; life_text.rect.y = 50;
-
-        last_lives = app.game.lives;
-    }
     
     // [추가] 게임 오버 시 최종 점수 표시
     if (app.game.game_over) {
