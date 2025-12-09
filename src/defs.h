@@ -144,7 +144,7 @@ extern Ingredient mushroom, cabbage, meat, beanSprouts, shoes, stone;
 extern Ingredient heart_red, heart_black;
 
 // UI 텍스트 객체
-extern TextObject score_text, life_text, gameover_text, restart_text, title_text, subtitle_text;
+extern TextObject score_text, gameover_text, restart_text, title_text, subtitle_text;
 extern TextObject rule1_text, rule2_text, rule3_text, gameover_score_text;
 
 #endif // DEFS_H
