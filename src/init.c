@@ -54,7 +54,6 @@ void init_sdl(void) {
 // UI 및 텍스트 초기화 함수
 void InitUI(void){
     score_text.texture = NULL;
-    life_text.texture = NULL;
     gameover_text.texture = NULL;
     restart_text.texture = NULL;
     title_text.texture = NULL;
@@ -159,7 +158,6 @@ void cleanup_sdl(void) {
     if (app.background_texture) SDL_DestroyTexture(app.background_texture);
     
     if (score_text.texture) SDL_DestroyTexture(score_text.texture);
-    if (life_text.texture) SDL_DestroyTexture(life_text.texture);
     if (gameover_text.texture) SDL_DestroyTexture(gameover_text.texture);
     if (restart_text.texture) SDL_DestroyTexture(restart_text.texture);
     if (gameover_score_text.texture) SDL_DestroyTexture(gameover_score_text.texture);
