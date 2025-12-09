@@ -30,16 +30,16 @@
 #define LAUNCH_SPEED_MAX 27.0f
 
 // 상수 정의
-#define FPS 60
-#define BUFSIZE 1024
+#define FPS 60                //게임 FPS
+#define BUFSIZE 1024          //문자열 버퍼크기
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 800      //화면 너비
+#define SCREEN_HEIGHT 600     //화면 높이
 
-#define INGREDIENTS_SIZE 100
-#define HEART_SIZE 30
+#define INGREDIENTS_SIZE 100  //재료 크기
+#define HEART_SIZE 30         //하트(생명)크기
 
-#define MAX_INGREDIENTS 50 // 화면에 나타나는 재료의 최대 개수
+#define MAX_INGREDIENTS 50 // 화면에 나타날 수 있는 재료의 최대 개수
 
 // [추가] 냄비(육수) 범위 및 스택 관련 상수
 #define POT_X 70
@@ -48,10 +48,10 @@
 #define POT_H 300
 #define MAX_STACK_INGREDIENTS 160 // 배경에 쌓이는 최대 재료 개수
 
-#define GRAVITY 0.5f
-#define PI 3.14
+#define GRAVITY 0.5f    //중력 상수
+#define PI 3.14         //파이 상수
 
-#define FONTSIZE 20
+#define FONTSIZE 20     //폰트사이즈 상
 
 #define TRAIL_LENGTH 10    // 마우스 궤적 길이
 
@@ -62,7 +62,7 @@ typedef enum {MUSHROOM, CABBAGE, MEAT, BEANSPROUTS, SHOES, STONE} TypeIngredient
 // 텍스트 객체 구조체
 typedef struct {
     SDL_Texture *texture; // 글자 이미지 데이터
-    SDL_Rect rect;        // 위치(x, y)와 크기(w, h) 정보
+    SDL_Rect rect;        // 위치(x, y)와 크기(w, h) 정보 
 } TextObject;
 
 // 재료 구조체
