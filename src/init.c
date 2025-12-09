@@ -1,4 +1,4 @@
-/**
+    /**
  * @file    init.c
  * @brief   게임 객체 및 SDL 요소 초기화 함수 정의
  * @author  조정배 팀
@@ -24,16 +24,29 @@ void init_sdl(void) {
 
     // 폰트 초기화
     if (TTF_Init() < 0){
-        printf("[ERROR] in InitTTF(): %s", SDL_GetError());
+        fprintf(stderr, "[ERROR] in InitTTF(): %s\n", TTF_GetError());
         exit(1);
     }
     app.font = TTF_OpenFont("./ttf/NotoSansKR-Regular.ttf", FONTSIZE);
+    if (!app.font) {
+        fprintf(stderr, "[WARNING] 폰트 로드 실패: %s\n", TTF_GetError());
+        fprintf(stderr, "폰트 없이 게임을 계속 진행합니다.\n");
+    }
     app.title_font = TTF_OpenFont("./ttf/NotoSansKR-Regular.ttf", FONTSIZE * 2); // 타이틀용 큰 폰트 로드 (기본 폰트의 2배 크기)
+    if (!app.title_font) {
+        fprintf(stderr, "[WARNING] 타이틀 폰트 로드 실패: %s\n", TTF_GetError());
+        fprintf(stderr, "기본 폰트를 사용합니다.\n");
+        // 기본 폰트가 있으면 그것을 사용, 없으면 title_font도 NULL
+        if (app.font) {
+            app.title_font = app.font;  // 같은 폰트 재사용 (크기만 다름)
+        }
+    }
     
     // 배경 초기화
     app.background_texture = IMG_LoadTexture(app.g_renderer, "./gfx/background.png");
     if(!app.background_texture){
-        printf("[ERROR] in Load background: %s\n", IMG_GetError());
+        fprintf(stderr, "[WARNING] 배경 이미지 로드 실패: %s\n", IMG_GetError());
+        fprintf(stderr, "검은 배경으로 게임을 계속 진행합니다.\n");
         app.background_texture = NULL;
     }
     
@@ -112,13 +125,13 @@ void InitTrail(void) {
 void InitIngredient(void) {
     #define LOAD_TEX(obj, path) \
         obj.texture = IMG_LoadTexture(app.g_renderer, path); \
-        if (!obj.texture) printf("Failed to load %s: %s\n", path, IMG_GetError());
+        if (!obj.texture) fprintf(stderr, "[WARNING] 이미지 로드 실패 %s: %s\n", path, IMG_GetError());
 
     #define LOAD_SPLIT_TEX(obj, path1, path2) \
         obj.sliced_tex1 = IMG_LoadTexture(app.g_renderer, path1); \
         obj.sliced_tex2 = IMG_LoadTexture(app.g_renderer, path2); \
-        if (!obj.sliced_tex1) printf("Failed to load %s\n", path1); \
-        if (!obj.sliced_tex2) printf("Failed to load %s\n", path2);
+        if (!obj.sliced_tex1) fprintf(stderr, "[WARNING] 이미지 로드 실패 %s: %s\n", path1, IMG_GetError()); \
+        if (!obj.sliced_tex2) fprintf(stderr, "[WARNING] 이미지 로드 실패 %s: %s\n", path2, IMG_GetError());
 
     // 1. 배추
     LOAD_TEX(cabbage, "./gfx/cabbage.png");
