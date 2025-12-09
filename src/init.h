@@ -20,4 +20,4 @@ void InitIngredient(void);
 void InitTrail(void);
 void cleanup_sdl(void);
 
-#endif // INIT_H
+#endif
