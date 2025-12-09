@@ -101,10 +101,10 @@ void SpawnIngredient(void) {
     SDL_QueryTexture(ing->texture, NULL, NULL, &origin_w, &origin_h);
 
     float scale = 1.0f;
-    float target_size = (float)INGREDIENTS_SIZE; // 목표 크기 (80px)
+    float target_size = (float)INGREDIENTS_SIZE; // 목표 크기 (100px)
 
     if (origin_w > 0 && origin_h > 0) {
-        // 가로가 더 길면 가로를 80에 맞추고, 세로가 더 길면 세로를 80에 맞춤
+        // 가로가 더 길면 가로를 목표 크기에 맞추고, 세로가 더 길면 세로를 목표 크기에 맞춤
         if (origin_w > origin_h) {
             scale = target_size / (float)origin_w;
         } else {
@@ -116,7 +116,7 @@ void SpawnIngredient(void) {
     ing->w = (int)(origin_w * scale);
     ing->h = (int)(origin_h * scale);
 
-    // [추가] 초기 target_y 설정 (일반 재료는 사용 안 하지만 초기화)
+     // 초기 target_y 설정 (일반 재료는 사용 안 하지만 초기화)
     ing->target_y = 0;
 }
 
