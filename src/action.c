@@ -97,7 +97,7 @@ void SpawnIngredient(void) {
             ing->is_enemy = 0; 
             break;
         case BEANSPROUTS: 
-      수
+      
     SDL_QueryTexture(ing->texture, NULL, NULL, &origin_w, &origin_h);
 
     float scale = 1.0f;
