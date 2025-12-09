@@ -55,29 +55,29 @@ void SpawnIngredient(void) {
             break;
         }
     }
-    if (idx == -1) return;
-
+    if (idx == -1) return;                    
+    //재료 포인터 ing
     Ingredient *ing = &app.game.ingredients[idx];
-
+    //재료 성질 초기화(존재하고, 안잘림)
     ing->is_active = 1;
-    ing->is_sliced = 0;
+    ing->is_sliced = 0;                                       
     
-
+    //재료 위치 초기화(x:중심에서 랜덤 offset 거리, y:화면 바닥)
     int center_x = SCREEN_WIDTH / 2;
     int offset_x = RandInt(-50, 51);
     ing->x = (float)(center_x + offset_x);
-    ing->y = (float)SCREEN_HEIGHT;
-
+    ing->y = (float)SCREEN_HEIGHT;                      
     double angle_deg = RandDouble(60.0, 120.0);
     double angle_rad = angle_deg * (PI / 180.0); // 각도 -> 라디안
     double speed = RandDouble(LAUNCH_SPEED_MIN, LAUNCH_SPEED_MAX);
-
+    
+    //재료 속도 초기화
     ing->dx = (float)(speed * cos(angle_rad));
-    ing->dy = (float)(-speed * sin(angle_rad));
-
-    ing->type = RandInt(0, 6);
-
-    switch (ing->type) {
+    ing->dy = (float)(-speed * sin(angle_rad));            
+    //재료 종류 랜덤 초기화
+    ing->type = RandInt(0, 6);                         
+    //switch문 이용해서 초기화된 재료에 맞게 이미지 할당, 적인지 확인
+    switch (ing->type) {                                
         case MUSHROOM: 
             ing->texture = mushroom.texture; 
             ing->sliced_tex1 = mushroom.sliced_tex1; 
