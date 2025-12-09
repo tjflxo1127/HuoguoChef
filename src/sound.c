@@ -5,6 +5,15 @@
  */
 #include "sound.h"
 
+// 효과음 핸들 (실제 정의)
+Mix_Chunk *slash_sound = NULL;
+Mix_Chunk *bomb_sound = NULL;
+Mix_Chunk *gameover_sound = NULL;
+Mix_Chunk *missingredient_sound = NULL;
+
+// BGM 핸들
+Mix_Music *bgm_music = NULL;
+
 void InitSound(void) {
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) {
         printf("SDL_mixer init error: %s\n", Mix_GetError());
