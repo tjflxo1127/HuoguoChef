@@ -8,7 +8,7 @@
 static int spawn_timer = 0;
 
 static int GetCurrentSpawnInterval(void) {
-    // 점수에 비례하여 감소할 값 계산 (50점당 1 감소)
+    // 점수에 비례하여 감소할 값 계산 (DIFFICULTY_SCORE_RATE값 당당 1 감소)
     int reduction = app.game.score / DIFFICULTY_SCORE_RATE; 
 
     // 최대값에서 감소분을 빼서 현재 간격을 구함
@@ -97,34 +97,7 @@ void SpawnIngredient(void) {
             ing->is_enemy = 0; 
             break;
         case BEANSPROUTS: 
-            ing->texture = beanSprouts.texture; 
-            ing->sliced_tex1 = beanSprouts.sliced_tex1; 
-            ing->sliced_tex2 = beanSprouts.sliced_tex2;
-            ing->is_enemy = 0; 
-            break;
-        case SHOES: 
-            ing->texture = shoes.texture; 
-            ing->sliced_tex1 = NULL; 
-            ing->sliced_tex2 = NULL;
-            ing->is_enemy = 1; 
-            break;
-        case STONE: 
-            ing->texture = stone.texture; 
-            ing->sliced_tex1 = NULL; 
-            ing->sliced_tex2 = NULL;
-            ing->is_enemy = 1; 
-            break;
-        default: 
-            ing->texture = cabbage.texture; 
-            ing->sliced_tex1 = cabbage.sliced_tex1; 
-            ing->sliced_tex2 = cabbage.sliced_tex2;
-            ing->is_enemy = 0; 
-            break;
-    }
-    
-    //비율 유지하며 크기 조절하는 로직
-    int origin_w, origin_h;
-    // 현재 연결된 이미지의 실제 크기를 알아냅니다.
+      수
     SDL_QueryTexture(ing->texture, NULL, NULL, &origin_w, &origin_h);
 
     float scale = 1.0f;
@@ -142,7 +115,6 @@ void SpawnIngredient(void) {
     // 2. 계산된 비율대로 크기 적용
     ing->w = (int)(origin_w * scale);
     ing->h = (int)(origin_h * scale);
-    // 원래 : 이제 이미지가 아무리 커도 8x8 크기로 찌그러져서 나옴 -> 비율 이상해짐 -> 위 코드로 해결
 
     // [추가] 초기 target_y 설정 (일반 재료는 사용 안 하지만 초기화)
     ing->target_y = 0;
@@ -160,7 +132,7 @@ void CreateFragment(Ingredient *parent, int part) {
         }
     }
     if (idx == -1) return; // 슬롯 꽉 참
-
+    //재료 포인터 frag 
     Ingredient *frag = &app.game.ingredients[idx];
 
     // 1. 기본 상태 설정
@@ -179,7 +151,7 @@ void CreateFragment(Ingredient *parent, int part) {
         return; 
     }
 
-    // [크기 설정] 
+    // frag 크기 설정
     // 부모의 절반 너비, 높이는 동일하게 설정 (비율 유지된 부모 크기 기준)
     frag->w = parent->w / 2; 
     frag->h = parent->h;
@@ -187,13 +159,13 @@ void CreateFragment(Ingredient *parent, int part) {
     // 3. 위치 및 물리 설정
     // 부모 위치를 기준으로 왼쪽 조각은 약간 왼쪽, 오른쪽 조각은 약간 오른쪽에 배치
     int offset = parent->w / 4; 
-    frag->x = parent->x + (part == 1 ? -offset : offset); 
+    frag->x = parent->x + (part == 1 ? -offset : offset); //삼항연산자를 이용해 x위치 배치
     frag->y = parent->y;
     
-    // 속도 설정: 원래 속도 유지하되, 좌우로 퍼지게
-    float spread = (part == 1) ? -4.0f : 4.0f; // 왼쪽은 -속도, 오른쪽은 +속도
+    // 잘랐을 때 자연스러운 모션을 위해 좌우로 퍼지게, 위로 약간 튀어오르게 속도를 조정
+    float spread = (part == 1) ? -4.0f : 4.0f; //삼항연산자를 이용해 왼쪽은 -속도, 오른쪽은 +속도
     frag->dx = parent->dx + spread; 
-    frag->dy = parent->dy - 3.0f; // 베였을 때 살짝 위로 튀어오름
+    frag->dy = parent->dy - 3.0f; 
 
     // [추가] 냄비 안 어디에서 멈출지 결정 (target_y)
     // 냄비 시작 Y(350) 부터 냄비 바닥(350+250) 사이의 랜덤 위치
@@ -210,8 +182,8 @@ void ActIngredients(Ingredient *ingredients, int count) {
         Ingredient *ing = &ingredients[i];
 
         if (ing->is_active) {
-            ing->dy += GRAVITY;
-            ing->x += ing->dx;
+            ing->dy += GRAVITY;    //y방향으로 중력가속도 받도록 설정
+            ing->x += ing->dx;    //속도(dx,dy)에 따라 x,y위치 변화
             ing->y += ing->dy;
 
         // 1. 왼쪽 벽 충돌 (x < 0)
@@ -219,7 +191,7 @@ void ActIngredients(Ingredient *ingredients, int count) {
                 ing->x = 0;          // 벽 밖으로 나가지 않게 위치 보정
                 ing->dx = -ing->dx;  // 속도 반전 (튕기기)
             }
-            // 2. 오른쪽 벽 충돌 (x + w > SCREEN_WIDTH)
+            // 2. 오른쪽 벽 충돌 (x + w > SCREEN_WIDTH) 재료의 너비인 w 고려!
             else if (ing->x + ing->w > SCREEN_WIDTH) {
                 ing->x = SCREEN_WIDTH - ing->w; // 벽 안쪽으로 위치 보정
                 ing->dx = -ing->dx;             // 속도 반전
