@@ -2,25 +2,30 @@
  * @file    sound.c
  * @brief   게임 내 효과음 구현을 위한 함수 정의 
  * @author  조정배 팀
+  * 
+ * 이 파일은 SDL_mixer를 사용하여 게임의 사운드를 처리한다:
+ * - 효과음 초기화 및 로드
+ * - BGM 재생 및 제어
+ * - 각종 게임 상황에 맞는 효과음 재생
  */
 #include "sound.h"
 
-// 효과음 핸들 (실제 정의)
-Mix_Chunk *slash_sound = NULL;
-Mix_Chunk *bomb_sound = NULL;
-Mix_Chunk *gameover_sound = NULL;
-Mix_Chunk *missingredient_sound = NULL;
+// 효과음 핸들 (실제 정의 - sound.h에서 extern으로 선언됨)
+Mix_Chunk *slash_sound = NULL;         // 재료 베기 효과음
+Mix_Chunk *bomb_sound = NULL;          // 함정(신발/돌) 접촉 효과음
+Mix_Chunk *gameover_sound = NULL;      // 게임 오버 효과음
+Mix_Chunk *missingredient_sound = NULL; // 재료 놓침 효과음
 
-// BGM 핸들
-Mix_Music *bgm_music = NULL;
+// BGM 핸들 (배경음악)
+Mix_Music *bgm_music = NULL; 
 
 void InitSound(void) {
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) {
-        printf("SDL_mixer init error: %s\n", Mix_GetError());
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) { //44.1kHz 샘플레이트, 스테레오, 512 바이트 청크 크기로 설정
+        printf("SDL_mixer init error: %s\n", Mix_GetError()); //오디오 초기화 실패 시 에러 메시지를 출력
     }
 }
 
-void LoadEffects(void) {
+void LoadEffects(void) { //모든 효과음 파일 로드
     slash_sound = Mix_LoadWAV("./sound/slash.wav");
     if (!slash_sound) printf("Slash sound load error: %s\n", Mix_GetError());
 
@@ -37,38 +42,37 @@ void LoadEffects(void) {
     if (!bgm_music) printf("BGM load error: %s\n", Mix_GetError());
 }
 
-void PlaySlashSound(void) {
+void PlaySlashSound(void) { //재료를 벤 효과음 재생
     if (slash_sound) Mix_PlayChannel(-1, slash_sound, 0);
 }
 
-void PlayBombSound(void) {
+void PlayBombSound(void) { //돌, 신발을 벤 효과음 재생
     if (bomb_sound) Mix_PlayChannel(-1, bomb_sound, 0);
 }
 
-void PlayGameOverSound(void) {
+void PlayGameOverSound(void) { //게임 오버 효과음 재생
     if (gameover_sound) Mix_PlayChannel(-1, gameover_sound, 0);
 }
 
-void PlayMissingredientSound(void) {
+void PlayMissingredientSound(void) { //재료를 놓폇을때 효과음 재생ㅇ
     if (missingredient_sound) Mix_PlayChannel(-1, missingredient_sound, 0);
 }
 
-void PlayBGM(void) {
+void PlayBGM(void) { //배경음악 반복 재생 (-1을 전달하여 무한반복)
     if (bgm_music) Mix_PlayMusic(bgm_music, -1);
 }
 
-void StopBGM(void) {
+void StopBGM(void) { //배경음악 재생 중지
     Mix_HaltMusic();
 }
 
-void SetBGMVolume(int volume) {
+void SetBGMVolume(int volume) { //배경음악의 소리가 너무 커서 줄이는 함수를 만들었음 배경음악의 볼륨을 조절하는 함수(0~128 범위에서 조절 가능)
     if (volume < 0) volume = 0;
     if (volume > 128) volume = 128;
     Mix_VolumeMusic(volume);
 }
 
-void CleanupSound(void) {
-    if (slash_sound) Mix_FreeChunk(slash_sound);
+void CleanupSound(void) { //모든 사운드 리소스 해제하고 오디오 시스템 종료 (게임 종료 시에 호출해서 메모리 누수를 방지한다)
     if (bomb_sound) Mix_FreeChunk(bomb_sound);
     if (gameover_sound) Mix_FreeChunk(gameover_sound);
     if (missingredient_sound) Mix_FreeChunk(missingredient_sound);
