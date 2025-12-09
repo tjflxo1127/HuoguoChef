@@ -7,8 +7,8 @@
 
 // SDL 및 모든 하위 시스템 초기화 
 void init_sdl(void) {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("[ERROR] in InitSDL(): %s", SDL_GetError());
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+        fprintf(stderr, "[ERROR] in InitSDL(): %s\n", SDL_GetError());
         exit(1);
     }
 
