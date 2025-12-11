@@ -41,7 +41,7 @@
 
 #define MAX_INGREDIENTS 50 // 화면에 나타날 수 있는 재료의 최대 개수
 
-// [추가] 냄비(육수) 범위 및 스택 관련 상수
+// 냄비(육수) 범위 및 스택 관련 상수
 #define POT_X 70
 #define POT_Y 250
 #define POT_W 700
@@ -83,7 +83,7 @@ typedef struct {
     int is_active;      // 1: 현재 화면에 존재함, 0: 비활성
     int is_sliced;      // 1: 베어짐, 0: 안 베어짐
 
-    float target_y;     // [추가] 냄비 안에서 멈출 목표 y좌표
+    float target_y;     // 냄비 안에서 멈출 목표 y좌표
 
     int w, h;           // 크기
     SDL_Texture *texture; // 이미지 텍스처
@@ -93,7 +93,7 @@ typedef struct {
 
 } Ingredient;
 
-// [추가] 배경에 쌓인 재료 구조체
+// 배경에 쌓인 재료 구조체
 typedef struct {
     int x, y;
     int w, h;
@@ -112,7 +112,7 @@ typedef struct {
     // 게임 내 모든 재료 관리 배열
     Ingredient ingredients[MAX_INGREDIENTS];
 
-    // [추가] 배경에 쌓인 재료 관리 (원형 버퍼 방식)
+    // 배경에 쌓인 재료 관리 (원형 버퍼 방식)
     StackIngredient stack[MAX_STACK_INGREDIENTS];
     int stack_head; // 다음에 저장할 인덱스 (오래된 것부터 덮어씀)
 } Game;
