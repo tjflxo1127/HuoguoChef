@@ -2,7 +2,7 @@
  * @file    action.c
  * @brief   재료의 움직임과 게임 로직을 구현한 함수 정의 
  * @author  조정배 팀
- * /
+ */
 
 #include "action.h"
 
