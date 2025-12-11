@@ -120,9 +120,10 @@ void SpawnIngredient(void) {
             break;
     }
     
-    //비율 유지하며 크기 조절하는 로직
+    // 비율 유지하며 크기 조절하는 로직
     int origin_w, origin_h;
-    // 현재 연결된 이미지의 실제 크기를 알아냅니다.
+
+    // 현재 연결된 이미지의 실제 크기를 변수에 저장 
     SDL_QueryTexture(ing->texture, NULL, NULL, &origin_w, &origin_h);
 
     float scale = 1.0f;
@@ -137,12 +138,11 @@ void SpawnIngredient(void) {
         }
     }
 
-    // 2. 계산된 비율대로 크기 적용
+    // 계산된 비율대로 크기 적용
     ing->w = (int)(origin_w * scale);
     ing->h = (int)(origin_h * scale);
-    // 원래 : 이제 이미지가 아무리 커도 8x8 크기로 찌그러져서 나옴 -> 비율 이상해짐 -> 위 코드로 해결
 
-    // [추가] 초기 target_y 설정 (일반 재료는 사용 안 하지만 초기화)
+    // 초기 target_y 초기화
     ing->target_y = 0;
 }
 
