@@ -9,7 +9,9 @@
 #include "defs.h"
 #include "action.h"
 
-// 사용자 입력을 처리하는 핵심 함수
+/**
+ * @brief 키보드/마우스 입력을 처리하고 게임 상태를 반영한다.
+ */
 void handle_events(void);
 
 #endif
