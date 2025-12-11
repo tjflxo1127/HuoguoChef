@@ -138,13 +138,15 @@ typedef struct {
     SDL_Texture *background_texture;
 } App;
 
+// extern 전역 변수 선언, 다른 소스 파일에 #inlcude "defs.h" 하여 변수 사용
+
 // 색상 정의
 extern SDL_Color white;
 extern SDL_Color red;
 extern SDL_Color black;
 extern SDL_Color yellow;
 
-// 전역 변수 선언 (extern)
+// 전역 변수 선언
 extern App app;
 extern int g_game_running;
 
@@ -153,7 +155,7 @@ extern Ingredient mushroom, cabbage, meat, beanSprouts, shoes, stone;
 extern Ingredient heart_red, heart_black;
 
 // UI 텍스트 객체
-extern TextObject score_text, gameover_text, restart_text, title_text, subtitle_text;
+extern TextObject score_text, life_text, gameover_text, restart_text, title_text, subtitle_text;
 extern TextObject rule1_text, rule2_text, rule3_text, gameover_score_text;
 
-#endif // DEFS_H
+#endif
