@@ -20,14 +20,14 @@ int CheckLineRectHit(int x1, int y1, int x2, int y2, const SDL_Rect *rect) {
     return 0;
 }
 
-// 정수 난수 생성 (min 이상 max 미만)
-// 재료 타입 결정(0~5) 등에 사용합니다.
+// 정수 난수 생성 : 재료 타입 결정, 랜덤 위치 저장 등에 사용
 int RandInt(int min, int max) {
     if (min >= max) return min;
+    // 정수 생성 후 범위에 맞는 수 반환
     return (rand() % (max - min)) + min;
 }
 
-// 실수 난수 생성 (min 이상 max 미만)
+// 실수 난수 생성 : 각도와 속도에 사용
 double RandDouble(double min, double max) {
     if (min >= max) return min;
     // 0.0 ~ 1.0 사이의 실수 난수 생성 후 범위에 맞게 변환
