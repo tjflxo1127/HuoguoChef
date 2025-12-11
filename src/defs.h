@@ -83,7 +83,7 @@ typedef struct {
     int is_active;      // 1: 현재 화면에 존재함, 0: 비활성
     int is_sliced;      // 1: 베어짐, 0: 안 베어짐
 
-    float target_y;     // 냄비 안에서 멈출 목표 y좌표
+    float target_y;     // 냄비 범위 내 정지하는 랜덤 깊이 (y좌표)
 
     int w, h;           // 크기
     SDL_Texture *texture; // 이미지 텍스처
