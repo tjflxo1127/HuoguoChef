@@ -121,7 +121,7 @@ typedef struct {
     SDL_Point trail_points[TRAIL_LENGTH];
     int trail_head; // 순환 버퍼 인덱스
 
-    // 마우스 상태 추가
+    // 마우스 상태 
     int mouse_x;
     int mouse_y;
     int mouse_down;
