@@ -8,7 +8,7 @@
 static int spawn_timer = 0;
 
 static int GetCurrentSpawnInterval(void) {
-    // 점수에 비례하여 감소할 값 계산 (50점당 1 감소)
+    //  DIFFICULTY_SCORE_RATE에 비례하여 감소할 값 계산 (30점당 1 감소)
     int reduction = app.game.score / DIFFICULTY_SCORE_RATE; 
 
     // 최대값에서 감소분을 빼서 현재 간격을 구함
@@ -46,6 +46,7 @@ static void AddToStackRandom(Ingredient *ing) {
 }
 
 void SpawnIngredient(void) {
+     // 빈 슬롯 찾기
     int idx = -1;
     for (int i = 0; i < MAX_INGREDIENTS; i++) {
         if (!app.game.ingredients[i].is_active) {
@@ -53,29 +54,29 @@ void SpawnIngredient(void) {
             break;
         }
     }
-    if (idx == -1) return;
+    if (idx == -1) return; // 슬롯 꽉 참
 
     Ingredient *ing = &app.game.ingredients[idx];
 
-    ing->is_active = 1;
-    ing->is_sliced = 0;
+    ing->is_active = 1; 
+    ing->is_sliced = 0; //나타난 재료는 화면에 존재하고/잘려지지 않은 상태
     
 
     int center_x = SCREEN_WIDTH / 2;
     int offset_x = RandInt(-50, 51);
     ing->x = (float)(center_x + offset_x);
-    ing->y = (float)SCREEN_HEIGHT;
+    ing->y = (float)SCREEN_HEIGHT; //(위치) x:창 중심에서 랜덤 오프셋 값만큼 차이, y:창 바닥
 
     double angle_deg = RandDouble(60.0, 120.0);
     double angle_rad = angle_deg * (PI / 180.0); // 각도 -> 라디안
     double speed = RandDouble(LAUNCH_SPEED_MIN, LAUNCH_SPEED_MAX);
 
     ing->dx = (float)(speed * cos(angle_rad));
-    ing->dy = (float)(-speed * sin(angle_rad));
+    ing->dy = (float)(-speed * sin(angle_rad)); //속력
 
-    ing->type = RandInt(0, 6);
+    ing->type = RandInt(0, 6); //재료 종류 배정
 
-    switch (ing->type) {
+    switch (ing->type) { 
         case MUSHROOM: 
             ing->texture = mushroom.texture; 
             ing->sliced_tex1 = mushroom.sliced_tex1; 
@@ -159,13 +160,13 @@ void CreateFragment(Ingredient *parent, int part) {
 
     Ingredient *frag = &app.game.ingredients[idx];
 
-    // 1. 기본 상태 설정
+    // 기본 상태 설정
     frag->is_active = 1;
     frag->is_sliced = 1; // 이미 잘린 상태로 취급 (점수 중복 획득 방지)
     frag->is_enemy = 0;
     frag->type = parent->type;
 
-    // 2. 텍스처 설정 (잘린 이미지 사용)
+    // 텍스처 설정 (잘린 이미지 사용)
     SDL_Texture *use_tex = (part == 1) ? parent->sliced_tex1 : parent->sliced_tex2;
     frag->texture = use_tex;
     
@@ -179,7 +180,7 @@ void CreateFragment(Ingredient *parent, int part) {
     frag->w = parent->w / 2; 
     frag->h = parent->h;
 
-    // 3. 위치 및 물리 설정
+    // 위치 및 물리 설정
     // 부모 위치를 기준으로 왼쪽 조각은 약간 왼쪽, 오른쪽 조각은 약간 오른쪽에 배치
     int offset = parent->w / 4; 
     frag->x = parent->x + (part == 1 ? -offset : offset); 
@@ -204,16 +205,16 @@ void ActIngredients(Ingredient *ingredients, int count) {
         Ingredient *ing = &ingredients[i];
 
         if (ing->is_active) {
-            ing->dy += GRAVITY;
-            ing->x += ing->dx;
-            ing->y += ing->dy;
+            ing->dy += GRAVITY; // y속도는 중력가속도 계속 작용
+            ing->x += ing->dx; 
+            ing->y += ing->dy; // 속도에 따라 x y 위치 설정
 
-        // 1. 왼쪽 벽 충돌 (x < 0)
+        // 왼쪽 벽 충돌 (x < 0)
             if (ing->x < 0) {
                 ing->x = 0;          // 벽 밖으로 나가지 않게 위치 보정
                 ing->dx = -ing->dx;  // 속도 반전 (튕기기)
             }
-            // 2. 오른쪽 벽 충돌 (x + w > SCREEN_WIDTH)
+            // 오른쪽 벽 충돌 (x + w > SCREEN_WIDTH)
             else if (ing->x + ing->w > SCREEN_WIDTH) {
                 ing->x = SCREEN_WIDTH - ing->w; // 벽 안쪽으로 위치 보정
                 ing->dx = -ing->dx;             // 속도 반전
@@ -270,7 +271,7 @@ void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int 
 
             if (CheckLineRectHit(x1, y1, x2, y2, &rect)) {
                 
-                // 1. 함정(적)인 경우: 즉시 게임 오버
+                // 함정(적)인 경우: 즉시 게임 오버
                 if (ing->is_enemy) {
                     PlayBombSound();
                     app.game.lives = 0;     // 라이프 즉시 0
@@ -278,7 +279,7 @@ void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int 
                     StopBGM();              // BGM 정지
                     ing->is_active = 0; 
                 } 
-                // 2. 일반 재료인 경우: 점수 추가 및 조각 생성
+                // 일반 재료인 경우: 점수 추가 및 조각 생성
                 else {
                     PlaySlashSound();
                     if (ing->type == MEAT) {
@@ -290,7 +291,7 @@ void CheckSlice(Ingredient *ingredients, int count, int x1, int y1, int x2, int 
                     // 원본 재료는 화면에서 제거
                     ing->is_active = 0;
 
-                    // [핵심] 조각 2개(왼쪽, 오른쪽) 생성
+                    // 조각 2개(왼쪽, 오른쪽) 생성
                     CreateFragment(ing, 1); 
                     CreateFragment(ing, 2); 
                 }
