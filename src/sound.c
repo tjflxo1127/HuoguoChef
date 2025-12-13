@@ -57,11 +57,11 @@ void PlayMissingredientSound(void) { //재료를 놓폇을때 효과음 재생
     if (missingredient_sound) Mix_PlayChannel(-1, missingredient_sound, 0);
 }
 
-void PlayBGM(void) { //배경음악 반복 재생 
-    if (bgm_music) Mix_PlayMusic(bgm_music, -1); //무한 반복을 위해 인자로 -1 전달
+void PlayBGM(void) { //배경음악 반복 재생 (게임 시작할때 - R키를 눌러 재시작하였을 때 포함)
+    if (bgm_music) Mix_PlayMusic(bgm_music, -1); //무한 반복을 위해 인자로 -1 전달 
 }
 
-void StopBGM(void) { //배경음악 재생 중지
+void StopBGM(void) { //배경음악 재생 중지 (게임이 종료되었을때)
     Mix_HaltMusic();
 }
 
