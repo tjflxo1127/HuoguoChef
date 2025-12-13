@@ -65,12 +65,6 @@ void StopBGM(void) { //배경음악 재생 중지 (게임이 종료되었을때)
     Mix_HaltMusic();
 }
 
-void SetBGMVolume(int volume) { //배경음악의 소리가 너무 커서 줄이는 함수를 만들었음 배경음악의 볼륨을 조절하는 함수(0~128 범위에서 조절 가능)
-    if (volume < 0) volume = 0;
-    if (volume > 128) volume = 128;
-    Mix_VolumeMusic(volume);
-}
-
 void CleanupSound(void) { //모든 사운드 리소스 해제하고 오디오 시스템 종료 (게임 종료 시에 호출해서 메모리 누수를 방지한다)
     if (bomb_sound) Mix_FreeChunk(bomb_sound);
     if (gameover_sound) Mix_FreeChunk(gameover_sound);
