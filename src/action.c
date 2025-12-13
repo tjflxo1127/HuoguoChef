@@ -54,9 +54,9 @@ void SpawnIngredient(void) {
             break;
         }
     }
-    if (idx == -1) return; 
+    if (idx == -1) return; // 빈 슬롯이 없을 경우 종료(오버플로우 방지)
 
-    Ingredient *ing = &app.game.ingredients[idx];
+    Ingredient *ing = &app.game.ingredients[idx]; // 슬롯의 주소를 가져옴
 
     ing->is_active = 1; 
     ing->is_sliced = 0; //나타난 재료는 화면에 존재하고 잘려지지 않은 상태
@@ -148,7 +148,7 @@ void SpawnIngredient(void) {
 }
 
 void CreateFragment(Ingredient *parent, int part) {
-    // 빈 슬롯 찾기
+    // 빈 슬롯 찾기 - 재료 조각도 오브젝트 풀링 방식
     int idx = -1;
     for (int i = 0; i < MAX_INGREDIENTS; i++) {
         if (!app.game.ingredients[i].is_active) {
