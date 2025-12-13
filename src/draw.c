@@ -164,10 +164,10 @@ void DrawGame(App *app, TextObject *score, TextObject *go, TextObject *restart) 
     if (app->game.game_over) {
         // 반투명 검은 막 씌우기
         SDL_SetRenderDrawBlendMode(app->g_renderer, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(app->g_renderer, 0, 0, 0, 200); // Alpha 200
+        SDL_SetRenderDrawColor(app->g_renderer, 0, 0, 0, 200); 
         SDL_Rect screen_rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
         SDL_RenderFillRect(app->g_renderer, &screen_rect);
-        SDL_SetRenderDrawBlendMode(app->g_renderer, SDL_BLENDMODE_NONE); // 복구
+        SDL_SetRenderDrawBlendMode(app->g_renderer, SDL_BLENDMODE_NONE); 
 
         // 게임 오버 및 재시작 텍스트 그리기
         RenderScoreBoard(app, go);
