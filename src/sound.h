@@ -42,7 +42,5 @@ void PlayBGM(void);
 // BGM 정지 함수
 void StopBGM(void);
 
-// BGM 볼륨 설정 함수 (0-128 범위) 
-void SetBGMVolume(int volume);
 
 #endif
