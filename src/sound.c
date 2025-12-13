@@ -19,7 +19,7 @@ Mix_Chunk *missingredient_sound = NULL; // 재료 놓침 효과음
 Mix_Music *bgm_music = NULL; 
 
 void InitSound(void) {
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) { //44.1kHz 샘플레이트, 스테레오(채널 2), 512 바이트를 버퍼 크기로 설정 (재료를 베고 나서 소리가 로드되는데 버퍼링이 생기길래 버퍼의 크기를 조절하면서 반응속도를 결정하였다.)
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) { //44.1kHz 샘플레이트, 스테레오(채널 2) //512(chunk size) --> : 베기 공격 시 오디오 지연을 최소화하기 위해 값을 점점 낮추었다. 
         printf("SDL_mixer init error: %s\n", Mix_GetError()); //오디오 초기화 실패 시 에러 메시지 출력
     }
 }
