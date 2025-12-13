@@ -23,9 +23,9 @@ void init_sdl(void);
 void InitUI();
 
 /**
- * @brief 재료 이미지와 관련 리소스를 로드한다.
+ * @brief 재료와 목숨 이미지 관련 리소스를 로드한다.
  */
-void InitIngredient(void);
+void InitPNG(void);
 
 /**
  * @brief 마우스 궤적 버퍼를 초기화한다.
