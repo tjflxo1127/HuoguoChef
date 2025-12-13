@@ -54,7 +54,7 @@ void SpawnIngredient(void) {
             break;
         }
     }
-    if (idx == -1) return; // 슬롯 꽉 참
+    if (idx == -1) return; 
 
     Ingredient *ing = &app.game.ingredients[idx];
 
