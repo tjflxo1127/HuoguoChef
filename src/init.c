@@ -122,7 +122,7 @@ void InitTrail(void) {
 }
 
 // 재료 이미지 초기화 함수 
-void InitIngredient(void) {
+void InitPNG(void) {
     #define LOAD_TEX(obj, path) \
         obj.texture = IMG_LoadTexture(app.g_renderer, path); \
         if (!obj.texture) fprintf(stderr, "[WARNING] 이미지 로드 실패 %s: %s\n", path, IMG_GetError());
