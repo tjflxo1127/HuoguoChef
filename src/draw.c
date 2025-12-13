@@ -22,9 +22,10 @@ void ShowWindow(App *app) {
 }
 
 // 3. 글자 -> 그림으로 변환 (String -> Texture 변환)
-// 통합된 함수: "폰트(font)를 네가 던져주면 그걸로 그려줄게"
 void CreateTextTexture(App *app, TextObject *text_obj, char *str, SDL_Color color, TTF_Font *font) {
-    if (font == NULL) return; // 안전장치
+    // 폰트 로드 실패 시 중단
+    if (app->font == NULL)
+        return;
 
     // 기존 텍스처 삭제
     if (text_obj->texture != NULL) {
@@ -32,11 +33,12 @@ void CreateTextTexture(App *app, TextObject *text_obj, char *str, SDL_Color colo
         text_obj->texture = NULL;
     }
 
-    // ★ 핵심: 받아온 font 변수로 그리기
+    // Surface 생성
     SDL_Surface *surface = TTF_RenderText_Solid(font, str, color);
-    if (surface == NULL) return;
+    if (surface == NULL)
+        return;
 
-    // 텍스처 변환
+    // Texture 생성
     text_obj->texture = SDL_CreateTextureFromSurface(app->g_renderer, surface);
     if (text_obj->texture != NULL) {
         text_obj->rect.w = surface->w;
