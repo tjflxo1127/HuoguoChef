@@ -200,8 +200,8 @@ void cleanup_sdl(void) {
     if (beanSprouts.sliced_tex1) SDL_DestroyTexture(beanSprouts.sliced_tex1);
     if (beanSprouts.sliced_tex2) SDL_DestroyTexture(beanSprouts.sliced_tex2);
 
-    if (heart_red_tex) SDL_DestroyTexture(heart_red_tex); 
-    if (heart_black_tex) SDL_DestroyTexture(heart_black_tex);
+    if (heart_red) SDL_DestroyTexture(heart_red); 
+    if (heart_black) SDL_DestroyTexture(heart_black);
 
 
 
