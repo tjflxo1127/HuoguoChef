@@ -142,7 +142,8 @@ extern int g_game_running;
 
 // 재료 변수 선언
 extern Ingredient mushroom, cabbage, meat, beanSprouts, shoes, stone;
-extern Ingredient heart_red, heart_black;
+extern SDL_Texture *heart_red;
+extern SDL_Texture *heart_black;
 
 // UI 텍스트 객체 선언
 extern TextObject score_text, life_text, gameover_text, restart_text, title_text, subtitle_text;
