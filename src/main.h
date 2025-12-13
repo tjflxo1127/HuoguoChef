@@ -24,7 +24,8 @@ int g_game_running = 1;         // 게임 루프 플래그
 
 // 재료 원본 데이터 생성
 Ingredient mushroom, cabbage, meat, beanSprouts, shoes, stone;
-Ingredient heart_red, heart_black;
+SDL_Texture *heart_red_tex = NULL;
+SDL_Texture *heart_black_tex = NULL;
 
 // 텍스트 객체 생성
 TextObject score_text, gameover_text, restart_text, title_text, subtitle_text;
