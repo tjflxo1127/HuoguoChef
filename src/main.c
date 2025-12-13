@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         handle_events(); 
         update_game(); 
         render_game(); 
-        SDL_Delay(1000 / 60); 
+        SDL_Delay(1000 / FPS); 
     }
 
     // 종료
