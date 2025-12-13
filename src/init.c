@@ -54,7 +54,7 @@ void init_sdl(void) {
     InitUI();
 
     // 게임 객체 (재료, 궤적)
-    InitIngredient();
+    InitPNG();
     InitTrail();
 
     // 사운드
@@ -157,11 +157,11 @@ void InitIngredient(void) {
     LOAD_TEX(stone, "./gfx/stone.png");
     stone.sliced_tex1 = NULL; stone.sliced_tex2 = NULL;
 
-  heart_red = IMG_LoadTexture(app.g_renderer, "./gfx/heart_red.png");
-if (!heart_red) fprintf(stderr, "[WARNING] 이미지 로드 실패 ./gfx/heart_red.png: %s\n", IMG_GetError());
+    heart_red = IMG_LoadTexture(app.g_renderer, "./gfx/heart_red.png");
+    if (!heart_red) fprintf(stderr, "[WARNING] 이미지 로드 실패 ./gfx/heart_red.png: %s\n", IMG_GetError());
 
     heart_black = IMG_LoadTexture(app.g_renderer, "./gfx/heart_black.png");
-if (!heart_black) fprintf(stderr, "[WARNING] 이미지 로드 실패 ./gfx/heart_black.png: %s\n", IMG_GetError());
+    if (!heart_black) fprintf(stderr, "[WARNING] 이미지 로드 실패 ./gfx/heart_black.png: %s\n", IMG_GetError());
 }
 
 void cleanup_sdl(void) {
