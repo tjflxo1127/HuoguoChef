@@ -3,10 +3,9 @@
  * @brief   게임 내 효과음 구현을 위한 함수 정의 
  * @author  조정배 팀
   * 
- * 이 파일은 SDL_mixer를 사용하여 게임의 사운드를 처리한다:
- * - 효과음 초기화 및 로드
- * - BGM 재생 및 제어
- * - 각종 게임 상황에 맞는 효과음 재생
+ * 이 파일은 SDL_mixer를 사용하여 게임의 사운드를 처리한다
+ * - 효과음 초기화 및 리소스 로드
+ * - 게임 상황에 맞는 효과음 재생
  */
 #include "sound.h"
 
@@ -20,14 +19,14 @@ Mix_Chunk *missingredient_sound = NULL; // 재료 놓침 효과음
 Mix_Music *bgm_music = NULL; 
 
 void InitSound(void) {
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) { //44.1kHz 샘플레이트, 스테레오, 512 바이트 청크 크기로 설정
-        printf("SDL_mixer init error: %s\n", Mix_GetError()); //오디오 초기화 실패 시 에러 메시지를 출력
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) { //44.1kHz 샘플레이트, 스테레오(채널 2), 512 바이트를 버퍼 크기로 설정 (재료를 베고 나서 소리가 로드되는데 버퍼링이 생기길래 버퍼의 크기를 조절하면서 반응속도를 결정하였따.)
+        printf("SDL_mixer init error: %s\n", Mix_GetError()); //오디오 초기화 실패 시 에러 메시지 출력
     }
 }
 
 void LoadEffects(void) { //모든 효과음 파일 로드
-    slash_sound = Mix_LoadWAV("./sound/slash.wav");
-    if (!slash_sound) printf("Slash sound load error: %s\n", Mix_GetError());
+    slash_sound = Mix_LoadWAV("./sound/slash.wav"); //리소스 로딩
+    if (!slash_sound) printf("Slash sound load error: %s\n", Mix_GetError()); //리소스 로딩 실패시 에러 메세지 출력
 
     bomb_sound = Mix_LoadWAV("./sound/bomb.wav");
     if (!bomb_sound) printf("Bomb sound load error: %s\n", Mix_GetError());
@@ -43,7 +42,7 @@ void LoadEffects(void) { //모든 효과음 파일 로드
 }
 
 void PlaySlashSound(void) { //재료를 벤 효과음 재생
-    if (slash_sound) Mix_PlayChannel(-1, slash_sound, 0);
+    if (slash_sound) Mix_PlayChannel(-1, 생
 }
 
 void PlayBombSound(void) { //돌, 신발을 벤 효과음 재생
@@ -54,12 +53,12 @@ void PlayGameOverSound(void) { //게임 오버 효과음 재생
     if (gameover_sound) Mix_PlayChannel(-1, gameover_sound, 0);
 }
 
-void PlayMissingredientSound(void) { //재료를 놓폇을때 효과음 재생ㅇ
+void PlayMissingredientSound(void) { //재료를 놓폇을때 효과음 재생
     if (missingredient_sound) Mix_PlayChannel(-1, missingredient_sound, 0);
 }
 
-void PlayBGM(void) { //배경음악 반복 재생 (-1을 전달하여 무한반복)
-    if (bgm_music) Mix_PlayMusic(bgm_music, -1);
+void PlayBGM(void) { //배경음악 반복 재생 
+    if (bgm_music) Mix_PlayMusic(bgm_music, -1); //무한 반복을 위해 인자로 -1 전달
 }
 
 void StopBGM(void) { //배경음악 재생 중지
