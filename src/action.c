@@ -191,8 +191,8 @@ void CreateFragment(Ingredient *parent, int part) {
     frag->dx = parent->dx + spread; 
     frag->dy = parent->dy - 3.0f; // 베였을 때 살짝 위로 튀어오름
 
-    // 냄비 시작 Y(350) 부터 냄비 바닥(350+250) 사이의 랜덤 깊이에서 정지
-    // 단, 재료 크기(h)를 고려하여 바닥을 뚫지 않게 조정
+    // 냄비 시작부터 냄비 바닥 사이의 랜덤 깊이에서 정지
+    // 재료 크기를 고려하여 바닥을 뚫지 않게 조정
     int min_y = POT_Y;
     int max_y = POT_Y + POT_H - frag->h;
     if (max_y < min_y) max_y = min_y; // 예외 처리
