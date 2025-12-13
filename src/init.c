@@ -157,9 +157,11 @@ void InitIngredient(void) {
     LOAD_TEX(stone, "./gfx/stone.png");
     stone.sliced_tex1 = NULL; stone.sliced_tex2 = NULL;
 
+  heart_red = IMG_LoadTexture(app.g_renderer, "./gfx/heart_red.png");
+if (!heart_red) fprintf(stderr, "[WARNING] 이미지 로드 실패 ./gfx/heart_red.png: %s\n", IMG_GetError());
 
-    LOAD_TEX(heart_red, "./gfx/heart_red.png");
-    LOAD_TEX(heart_black, "./gfx/heart_black.png");
+    heart_black = IMG_LoadTexture(app.g_renderer, "./gfx/heart_black.png");
+if (!heart_black) fprintf(stderr, "[WARNING] 이미지 로드 실패 ./gfx/heart_black.png: %s\n", IMG_GetError());
 }
 
 void cleanup_sdl(void) {
@@ -197,6 +199,9 @@ void cleanup_sdl(void) {
     
     if (beanSprouts.sliced_tex1) SDL_DestroyTexture(beanSprouts.sliced_tex1);
     if (beanSprouts.sliced_tex2) SDL_DestroyTexture(beanSprouts.sliced_tex2);
+
+    if (heart_red_tex) SDL_DestroyTexture(heart_red_tex); 
+    if (heart_black_tex) SDL_DestroyTexture(heart_black_tex);
 
 
 
