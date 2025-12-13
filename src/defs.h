@@ -28,7 +28,6 @@
 
 // 상수 정의
 #define FPS 60
-#define BUFSIZE 64  // 점수 문자열 버퍼 사이즈
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -142,6 +141,8 @@ extern int g_game_running;
 
 // 재료 변수 선언
 extern Ingredient mushroom, cabbage, meat, beanSprouts, shoes, stone;
+
+// 목숨 텍스처 포인터 선언
 extern SDL_Texture *heart_red;
 extern SDL_Texture *heart_black;
 
