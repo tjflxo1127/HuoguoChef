@@ -7,7 +7,6 @@
 #define DEFS_H
 
 // 표준 라이브러리
-#include <ctype.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,7 +29,7 @@
 
 // 상수 정의
 #define FPS 60
-#define BUFSIZE 1024
+#define BUFSIZE 64  // 점수 문자열 버퍼 사이즈
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -38,7 +37,7 @@
 #define INGREDIENTS_SIZE 100
 #define HEART_SIZE 30
 
-#define MAX_INGREDIENTS 50 // 화면에 나타나는 재료의 최대 개수
+#define MAX_INGREDIENTS 50 // 화면에 나타나는 재료의 최대 개수(풀의 크기)
 
 #define TRAIL_LENGTH 10     // 마우스 궤적 길이
 
@@ -100,7 +99,7 @@ typedef struct {
     int game_over;      // 게임 종료 여부
     int title_screen;   // 타이틀 화면 표시 여부
 
-    // 게임 내 모든 재료 관리 배열
+    // 게임 내 모든 재료 관리 배열(오브젝트 풀)
     Ingredient ingredients[MAX_INGREDIENTS];
 
     // 배경에 쌓이는 재료 관리
@@ -121,7 +120,7 @@ typedef struct {
     SDL_Point trail_points[TRAIL_LENGTH];
     int trail_head; // 순환 버퍼 인덱스
 
-    // 마우스 상태 
+    // 마우스 상태 추가
     int mouse_x;
     int mouse_y;
     int mouse_down;
