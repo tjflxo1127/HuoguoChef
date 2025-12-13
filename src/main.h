@@ -25,6 +25,7 @@ int g_game_running = 1;         // 게임 루프 플래그
 // 재료 원본 데이터 생성
 Ingredient mushroom, cabbage, meat, beanSprouts, shoes, stone;
 
+// 목숨 이미지 텍스처 포인터 생성
 SDL_Texture *heart_red = NULL;
 SDL_Texture *heart_black = NULL;
 
