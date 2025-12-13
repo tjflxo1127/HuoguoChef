@@ -59,7 +59,7 @@ void SpawnIngredient(void) {
     Ingredient *ing = &app.game.ingredients[idx];
 
     ing->is_active = 1; 
-    ing->is_sliced = 0; //나타난 재료는 화면에 존재하고/잘려지지 않은 상태
+    ing->is_sliced = 0; //나타난 재료는 화면에 존재하고 잘려지지 않은 상태
     
 
     int center_x = SCREEN_WIDTH / 2;
@@ -224,15 +224,12 @@ void ActIngredients(Ingredient *ingredients, int count) {
             // 냄비에 쌓이는 조건 세 가지 (조건 1, 2, 3)
             // 조건: 잘린 재료이고(is_sliced), 적(함정)이 아님
             if (ing->is_sliced && !ing->is_enemy) {
-                // X축 범위 확인: 냄비 범위(POT_X ~ POT_X + POT_W) 안에 있는가?
                 if (ing->x + ing->w > POT_X && ing->x < POT_X + POT_W) {
-                    // Y축 깊이 확인: 목표 지점(target_y)에 도달했는가?
-                    if (ing->y >= ing->target_y) {
-                        // 위치 고정 및 스택 추가
-                        ing->y = ing->target_y; // 정확한 위치로 보정
+                    if (ing->y >= ing->target_y) { // target_y 도달했는지 확인
+                        ing->y = ing->target_y; 
                         AddToStack(ing);        // 배경 스택에 추가
                         ing->is_active = 0;     // 활성 목록에서 제거 (물리 연산 중단)
-                        continue;               // 다음 재료로 넘어감
+                        continue;             
                     }
                 }
             }
