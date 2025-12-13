@@ -76,15 +76,15 @@ void InitUI(void){
     rule3_text.texture = NULL;
 
 
-    TextureBigText(&app, &title_text, "Huoguo Chef", red);
+    CreateTextTexture(&app, &title_text, "Huoguo Chef", red, app.title_font);
     
-    TextureSmallText(&app, &subtitle_text, "Press R to Start", yellow);
-    TextureSmallText(&app, &rule1_text, "Meat: 30 points, Mushroom/Cabbage/BeanSprouts: 10 points", black);
-    TextureSmallText(&app, &rule2_text, "Shoes/Stone: Game Over!", black);
-    TextureSmallText(&app, &rule3_text, "Miss Ingredient: Life -1 (Total 3)", black);
+    CreateTextTexture(&app, &subtitle_text, "Press R to Start", yellow, app.font);
+    CreateTextTexture(&app, &rule1_text, "Meat: 30 points, Mushroom/Cabbage/BeanSprouts: 10 points", black, app.font);
+    CreateTextTexture(&app, &rule2_text, "Shoes/Stone: Game Over!", black, app.font);
+    CreateTextTexture(&app, &rule3_text, "Miss Ingredient: Life -1 (Total 3)", black, app.font);
 
-    TextureSmallText(&app, &gameover_text, "GAME OVER", red);
-    TextureSmallText(&app, &restart_text, "Press 'R' to Restart", white);
+    CreateTextTexture(&app, &gameover_text, "GAME OVER", red, app.font);
+    CreateTextTexture(&app, &restart_text, "Press 'R' to Restart", white, app.font);
 
 
     // 위치 설정 (화면 중앙)
