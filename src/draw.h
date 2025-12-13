@@ -46,17 +46,6 @@ void ShowWindow(App *app);
 // 텍스처 헬퍼 함수
 void CreateTextTexture(App *app, TextObject *text_obj, char *str, SDL_Color color, TTF_Font *font);
 
-/**
- * @brief   문자열을 큰 폰트(타이틀용)로 텍스처로 변환한다.
- * @param   app 게임 애플리케이션 구조체 포인터
- * @param   text_obj 텍스트 객체 포인터 (결과가 저장됨)
- * @param   str 렌더링할 문자열
- * @param   color 텍스트 색상
- * 
- * 일반 텍스트보다 2배 큰 폰트를 사용하여 타이틀 화면에 사용된다.
- */
-void TextureBigText(App *app, TextObject *text_obj, char *str, SDL_Color color);
-
 
 /**
  * @brief   개별 재료(식재료 또는 함정)를 화면에 그린다.
