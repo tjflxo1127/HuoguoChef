@@ -5,14 +5,14 @@
  */
 #include "utils.h"
 
-// 선분(궤적)과 사각형(재료)의 교차 판정
-// SDL_IntersectRectAndLine 함수를 사용하여 판정
+// 선분(궤적)과 사각형(재료)가 겹치는지 판정
 int CheckLineRectHit(int x1, int y1, int x2, int y2, const SDL_Rect *rect) {
-    // SDL_IntersectRectAndLine 함수는 원본 좌표 변수를 수정하여 잘린 선분을 반환하므로, 원본 좌표를 보호하기 위해 임시 변수 사용
+   // SDL_IntersectRectAndLine 함수 : 원본 좌표 변수를 수정
+    // 임시 변수를 사용
     int tx1 = x1, ty1 = y1;
     int tx2 = x2, ty2 = y2;
 
-    // SDL 내장 함수: 선분이 사각형과 조금이라도 겹치면 SDL_TRUE(1) 반환
+    // SDL 라이브러리 함수: 선분이 사각형과 조금이라도 겹치면 1 반환
     if (SDL_IntersectRectAndLine(rect, &tx1, &ty1, &tx2, &ty2)) {
         return 1;
     }
