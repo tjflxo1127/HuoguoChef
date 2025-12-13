@@ -39,7 +39,8 @@ void LoadEffects(void) { //모든 효과음 파일 로드
 
     bgm_music = Mix_LoadMUS("./sound/BGM.wav");
     if (!bgm_music) printf("BGM load error: %s\n", Mix_GetError());
-}
+    // 사운드 출처 : https://youtu.be/_YdFyzU8ryA?si=Avp-paMc-B1TKbCl
+} 
 
 void PlaySlashSound(void) { //재료를 벤 효과음 재생
      if (slash_sound) Mix_PlayChannel(-1, slash_sound, 0); 
