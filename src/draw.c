@@ -154,9 +154,11 @@ void DrawGame(App *app, TextObject *score, TextObject *go, TextObject *restart) 
         
         // 현재 남은 목숨 수에 따라 빨간 하트 또는 검은 하트 그리기
         if (app->game.lives >= i) {
-            if (heart_red.texture) SDL_RenderCopy(app->g_renderer, heart_red.texture, NULL, &dest);
+          // heart_red.texture 대신 heart_red_tex 사용
+            if (heart_red) SDL_RenderCopy(app->g_renderer, heart_red, NULL, &dest);
         } else {
-            if (heart_black.texture) SDL_RenderCopy(app->g_renderer, heart_black.texture, NULL, &dest);
+            // heart_black.texture 대신 heart_black_tex 사용
+            if (heart_black) SDL_RenderCopy(app->g_renderer, heart_black, NULL, &dest);
         }
     }
 
