@@ -44,7 +44,7 @@ void ShowWindow(App *app);
  * 기존 텍스처가 있으면 먼저 해제하여 메모리 누수를 방지한다.
  */
 // 텍스처 헬퍼 함수
-void TextureSmallText(App *app, TextObject *text_obj, char *str, SDL_Color color);
+void CreateTextTexture(App *app, TextObject *text_obj, char *str, SDL_Color color, TTF_Font *font);
 
 /**
  * @brief   문자열을 큰 폰트(타이틀용)로 텍스처로 변환한다.
