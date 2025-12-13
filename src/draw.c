@@ -22,58 +22,29 @@ void ShowWindow(App *app) {
 }
 
 // 3. 글자 -> 그림으로 변환 (String -> Texture 변환)
-void TextureSmallText(App *app, TextObject *text_obj, char *str, SDL_Color color) {
-    // 폰트 로드 실패 시 중단
-    if (app->font == NULL)
-        return;
+// 통합된 함수: "폰트(font)를 네가 던져주면 그걸로 그려줄게"
+void CreateTextTexture(App *app, TextObject *text_obj, char *str, SDL_Color color, TTF_Font *font) {
+    if (font == NULL) return; // 안전장치
 
-    // 기존 텍스처 삭제 (메모리 누수 방지)
+    // 기존 텍스처 삭제
     if (text_obj->texture != NULL) {
         SDL_DestroyTexture(text_obj->texture);
         text_obj->texture = NULL;
     }
 
-    // Surface 생성
-    SDL_Surface *surface = TTF_RenderText_Solid(app->font, str, color);
-    if (surface == NULL)
-        return;
-
-    // Texture 생성
-    text_obj->texture = SDL_CreateTextureFromSurface(app->g_renderer, surface);
-    
-    if (text_obj->texture != NULL) {
-        text_obj->rect.w = surface->w;
-        text_obj->rect.h = surface->h;
-    }
-
-    SDL_FreeSurface(surface);
-}
-
-// 3-1. 타이틀용 큰 텍스트 그림으로 변환 
-void TextureBigText(App *app, TextObject *text_obj, char *str, SDL_Color color) {
-    // 타이틀 폰트 로드 실패 시 중단
-    if (app->title_font == NULL) return;
-
-    // 기존 텍스처 삭제 (메모리 누수 방지)
-    if (text_obj->texture != NULL) {
-        SDL_DestroyTexture(text_obj->texture);
-        text_obj->texture = NULL;
-    }
-
-    // Surface 생성 (큰 폰트 사용)
-    SDL_Surface *surface = TTF_RenderText_Solid(app->title_font, str, color);
+    // ★ 핵심: 받아온 font 변수로 그리기
+    SDL_Surface *surface = TTF_RenderText_Solid(font, str, color);
     if (surface == NULL) return;
 
-    // Texture 생성
+    // 텍스처 변환
     text_obj->texture = SDL_CreateTextureFromSurface(app->g_renderer, surface);
-
     if (text_obj->texture != NULL) {
         text_obj->rect.w = surface->w;
         text_obj->rect.h = surface->h;
     }
-
     SDL_FreeSurface(surface);
 }
+
 
 // 4. 개별 재료 그리기
 void RenderEntity(App *app, Ingredient *ing) {
@@ -224,7 +195,7 @@ void render_game(void) {
     if (app.game.score != last_score) {
         char score_str[64];
         sprintf(score_str, "Score: %d", app.game.score);
-        TextureSmallText(&app, &score_text, score_str, black);
+        CreateTextTexture(&app, &score_text, score_str, black, app.font);
         score_text.rect.x = 20; score_text.rect.y = 20;
         
         last_score = app.game.score; // 현재 점수 기억
@@ -235,7 +206,7 @@ void render_game(void) {
     if (app.game.game_over) {
         char final_score_str[64];
         sprintf(final_score_str, "Final Score: %d", app.game.score);
-        TextureSmallText(&app, &gameover_score_text, final_score_str, yellow);
+        CreateTextTexture(&app, &gameover_score_text, final_score_str, yellow, app.font);
         gameover_score_text.rect.x = (SCREEN_WIDTH - gameover_score_text.rect.w) / 2;
         gameover_score_text.rect.y = SCREEN_HEIGHT / 2 - 30;
     }
