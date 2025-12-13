@@ -22,7 +22,7 @@
  * @param   rect 검사할 사각형 포인터
  * @return  충돌 시 1, 미충돌 시 0
  * 
- * SDL_IntersectRectAndLine 함수를 사용하여 정밀하게 판정한다.
+ * SDL_IntersectRectAndLine 함수를 사용하여 판정한다.
  * 이 함수는 마우스로 재료를 베었는지 판단하는 데 사용된다.
  */
 int CheckLineRectHit(int x1, int y1, int x2, int y2, const SDL_Rect *rect);
