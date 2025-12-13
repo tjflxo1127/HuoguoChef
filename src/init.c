@@ -149,10 +149,11 @@ void InitIngredient(void) {
     LOAD_TEX(beanSprouts, "./gfx/bean_sprouts.png");
     LOAD_SPLIT_TEX(beanSprouts, "./gfx/s_bean_sprouts1.png", "./gfx/s_bean_sprouts2.png");
 
-    // 5. 함정 (신발, 돌) - 잘린 이미지가 없으므로 NULL
+    // 5. 함정 (신발) - 잘린 이미지가 없으므로 NULL
     LOAD_TEX(shoes, "./gfx/shoes.png");
     shoes.sliced_tex1 = NULL; shoes.sliced_tex2 = NULL;
 
+    // 6. 함정 (돌) 
     LOAD_TEX(stone, "./gfx/stone.png");
     stone.sliced_tex1 = NULL; stone.sliced_tex2 = NULL;
 
