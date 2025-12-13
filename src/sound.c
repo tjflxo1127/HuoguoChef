@@ -42,7 +42,8 @@ void LoadEffects(void) { //모든 효과음 파일 로드
 }
 
 void PlaySlashSound(void) { //재료를 벤 효과음 재생
-    if (slash_sound) Mix_PlayChannel(-1, 생
+     if (slash_sound) Mix_PlayChannel(-1, slash_sound, 0); 
+    //첫번째 인자 -1(channel) -> 비어있는 채널을 자동으로 찾아 재생 (소리가 안겹치기 위함), 세번째 인자 0 -> 반복 재생 x, 한번만 재생됨
 }
 
 void PlayBombSound(void) { //돌, 신발을 벤 효과음 재생
