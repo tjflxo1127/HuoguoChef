@@ -142,7 +142,7 @@ void DrawGame(App *app, TextObject *score, TextObject *go, TextObject *restart) 
         }
     }
 
-    // C. 점수판 (Score) 그리기
+    // C. 점수판 그리기
     RenderScoreBoard(app, score);
 
     int start_x = 20;  // 점수판과 같은 왼쪽 정렬 (x=20)
