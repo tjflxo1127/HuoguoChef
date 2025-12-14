@@ -4,8 +4,9 @@
  * @author  조정배 팀
   * 
  * 이 파일은 SDL_mixer를 사용하여 게임의 사운드를 처리한다
- * - 효과음 초기화 및 리소스 로드
+ * - 효과음 및 BGM 리소스 로드
  * - 게임 상황에 맞는 효과음 재생
+ * - 게임 BGM 재생
  */
 #include "sound.h"
 
@@ -25,7 +26,7 @@ void InitSound(void) {
 }
 
 void LoadEffects(void) { //모든 효과음 파일 로드
-    slash_sound = Mix_LoadWAV("./sound/slash.wav"); //리소스 로딩
+    slash_sound = Mix_LoadWAV("./sound/slash.wav"); //리소스 로딩 //Mix_LoadWAV - 파일 전체를 메모리에 미리 저장하고 재생
     if (!slash_sound) printf("Slash sound load error: %s\n", Mix_GetError()); //리소스 로딩 실패시 에러 메세지 출력
 
     bomb_sound = Mix_LoadWAV("./sound/bomb.wav");
@@ -37,7 +38,7 @@ void LoadEffects(void) { //모든 효과음 파일 로드
     missingredient_sound = Mix_LoadWAV("./sound/missingredient.wav");
     if (!missingredient_sound) printf("Missingredient sound load error: %s\n", Mix_GetError());
 
-    bgm_music = Mix_LoadMUS("./sound/BGM.wav");
+    bgm_music = Mix_LoadMUS("./sound/BGM.wav"); //Mix_LoadMUS - 파일을 한번에 다 읽지 않고 스트리밍 방식으로 조금씩 읽으며 재생 (bgm_music은 Mix_Music* 타입)
     if (!bgm_music) printf("BGM load error: %s\n", Mix_GetError());
     // 사운드 출처 : https://youtu.be/_YdFyzU8ryA?si=Avp-paMc-B1TKbCl
 } 
@@ -67,7 +68,7 @@ void StopBGM(void) { //배경음악 재생 중지 (게임이 종료되었을때)
     Mix_HaltMusic();
 }
 
-void CleanupSound(void) { //모든 사운드 리소스 해제하고 오디오 시스템 종료 (게임 종료 시에 호출해서 메모리 누수를 방지한다)
+void CleanupSound(void) { //모든 사운드 리소스 해제하고 오디오 시스템 종료 (게임 종료 시에 호출, 메모리 누수 방지)
     if (bomb_sound) Mix_FreeChunk(bomb_sound);
     if (gameover_sound) Mix_FreeChunk(gameover_sound);
     if (missingredient_sound) Mix_FreeChunk(missingredient_sound);
