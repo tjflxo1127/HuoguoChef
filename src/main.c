@@ -16,9 +16,9 @@ int main(int argc, char *argv[]) {
     PlayBGM();
 
     // 게임 상태 초기화
-    app.game.score = 0;
-    app.game.lives = 3;
-    app.game.game_over = 0;
+    app.game.score = 0; // 시작 점수 = 0
+    app.game.lives = 3; // 시작 목숨 = 3 
+    app.game.game_over = 0; 
     app.game.title_screen = 1;  // 타이틀 화면으로 시작
 
     // 게임 루프
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         handle_events(); 
         update_game(); 
         render_game(); 
-        SDL_Delay(1000 / FPS); 
+        SDL_Delay(1000 / FPS); //60프레임 사용
     }
 
     // 종료
