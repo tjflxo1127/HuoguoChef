@@ -60,7 +60,7 @@ void init_sdl(void) {
     // 사운드
     InitSound();       // 사운드 시스템 초기화
     LoadEffects();     // 효과음(.wav) 파일 로드
-    Mix_VolumeMusic(64);// BGM 볼륨 낮추기 (절반으로 낮추었다)
+    Mix_VolumeMusic(64);// BGM 볼륨 낮추기 (소리의 절반)
 
 }
 
@@ -165,7 +165,7 @@ void InitPNG(void) {
 }
 
 void cleanup_sdl(void) {
-    if (cabbage.texture) SDL_DestroyTexture(cabbage.texture);
+    if (cabbage.texture) SDL_DestroyTexture(cabbage.texture); // 텍스처 해제
     if (meat.texture) SDL_DestroyTexture(meat.texture);
     if (mushroom.texture) SDL_DestroyTexture(mushroom.texture);
     if (beanSprouts.texture) SDL_DestroyTexture(beanSprouts.texture);
@@ -173,7 +173,7 @@ void cleanup_sdl(void) {
     if (stone.texture) SDL_DestroyTexture(stone.texture);
     if (app.background_texture) SDL_DestroyTexture(app.background_texture);
     
-    if (score_text.texture) SDL_DestroyTexture(score_text.texture);
+    if (score_text.texture) SDL_DestroyTexture(score_text.texture); 
     if (gameover_text.texture) SDL_DestroyTexture(gameover_text.texture);
     if (restart_text.texture) SDL_DestroyTexture(restart_text.texture);
     if (gameover_score_text.texture) SDL_DestroyTexture(gameover_score_text.texture);
@@ -183,10 +183,10 @@ void cleanup_sdl(void) {
     if (rule2_text.texture) SDL_DestroyTexture(rule2_text.texture);
     if (rule3_text.texture) SDL_DestroyTexture(rule3_text.texture);
 
-    if (app.title_font && app.title_font != app.font) TTF_CloseFont(app.title_font);
+    if (app.title_font && app.title_font != app.font) TTF_CloseFont(app.title_font); // 폰트 해제
     if (app.font) TTF_CloseFont(app.font);
-    if (app.g_renderer) SDL_DestroyRenderer(app.g_renderer);
-    if (app.g_window) SDL_DestroyWindow(app.g_window);
+    if (app.g_renderer) SDL_DestroyRenderer(app.g_renderer); // 렌더러 해제
+    if (app.g_window) SDL_DestroyWindow(app.g_window); // 윈도우 해제
 
     if (cabbage.sliced_tex1) SDL_DestroyTexture(cabbage.sliced_tex1);
     if (cabbage.sliced_tex2) SDL_DestroyTexture(cabbage.sliced_tex2);
@@ -205,10 +205,10 @@ void cleanup_sdl(void) {
 
 
 
-    CleanupSound(); //사운드 시스템 정리 추가
+    CleanupSound(); //사운드 해제
 
     TTF_Quit();
     IMG_Quit();
-    SDL_Quit();
+    SDL_Quit(); // SDL종료
 
 }
